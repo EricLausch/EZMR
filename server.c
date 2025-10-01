@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 //
 #define ENTRYLEN 32
@@ -54,16 +55,37 @@ int main (void){
 void chat (int sock){
 
     int j = 0;
+    int z = 0;
 
     char* msg ="Hello from server\n";
     char* gb = "GOODBYE CLIENT!\n";
+    char entry[1024] = {0}; 
     char buffer[1024] = {0};
+    char logbuffer[1024] = {0};
 
     char data[5][ENTRYLEN] = {"Banane", "Gulash", "Bier"};
     char tempdata[5][ENTRYLEN] = {0};
+    char log[1024][ENTRYLEN] = {0};
 
     while(1){
         read(sock, buffer, 1024-1);
+
+        time_t now;
+	    now = time(0);
+        strcpy(entry,ctime(&now));
+        entry[strlen(entry)-1]='\0';
+
+        strcat(entry," ");
+        strcat(entry,buffer);
+
+        if (z <= 1023){
+            memcpy(log[z], entry,(strlen(entry)-1));
+            z++;
+        }
+        else{
+            z = 0;
+            memset(log, 0, sizeof log);
+        }
 
         if (strncmp(buffer, "EXIT", 4) == 0){
             send(sock, gb, strlen(gb),0);
@@ -78,14 +100,24 @@ void chat (int sock){
                     memset(buffer, 0, sizeof buffer);
                 }
             }        
-        } 
+        }
+        else if (strncmp(buffer, "GETLOG", 6) == 0){
+            for (int i = 0; i <= (sizeof(log)/ENTRYLEN); i++)
+            {
+                if (log[i][0] != '\0'){
+                    send(sock, log[i], strlen(log[i]),0);
+                    send(sock, "\n", strlen("\n"),0);
+                    memset(buffer, 0, sizeof buffer);
+                }
+            }  
+        }
         else{
-            printf("%s",buffer);
+            //printf("%s",buffer);
 
             if (strncmp(buffer, "UPDATELIST",9) == 0){
                 memset(data, 0, sizeof(data));  
                 memcpy(data, tempdata, sizeof(tempdata));
-                
+
                 memset(tempdata, 0, sizeof(tempdata));  
                 j = 0;
             }
@@ -94,8 +126,8 @@ void chat (int sock){
                 else j = 0;
                 memcpy(tempdata[j],buffer,(strlen(buffer)-1)); 
             }
-            
-            memset(buffer, 0, sizeof(buffer));
+
+            memset(buffer, 0, sizeof(buffer));  //Buffer löschen
             //send(sock, msg, strlen(msg),0);
         }
     }
