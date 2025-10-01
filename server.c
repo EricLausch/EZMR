@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//
+#define ENTRYLEN 32
+
 //TBD
 // Server socket beenden bei ^C
 
@@ -50,21 +53,48 @@ int main (void){
 
 void chat (int sock){
 
-    while(1){
-        char* msg ="Hello from server\n";
-        char* gb = "GOODBYE CLIENT!\n";
-        char buffer[1024] = {0};
+    int j = 0;
 
+    char* msg ="Hello from server\n";
+    char* gb = "GOODBYE CLIENT!\n";
+    char buffer[1024] = {0};
+
+    char data[5][ENTRYLEN] = {"Banane", "Gulash", "Bier"};
+    char tempdata[5][ENTRYLEN] = {0};
+
+    while(1){
         read(sock, buffer, 1024-1);
 
         if (strncmp(buffer, "EXIT", 4) == 0){
             send(sock, gb, strlen(gb),0);
             exit(0);
+        }
+        else if (strncmp(buffer, "GETLIST", 6) == 0){
+            for (int i = 0; i <= (sizeof(data)/ENTRYLEN); i++)
+            {
+                if (data[i][0] != '\0'){
+                    send(sock, data[i], strlen(data[i]),0);
+                    send(sock, "\n", strlen("\n"),0);
+                    memset(buffer, 0, sizeof buffer);
+                }
+            }        
         } 
-        printf("%s\n",buffer);
+        else{
+            printf("%s",buffer);
 
-        memset(buffer, 0, sizeof buffer);
-        send(sock, msg, strlen(msg),0);
+            if (strncmp(buffer, "UPDATELIST",9) == 0){
+                memcpy(data, tempdata, sizeof(tempdata));
+                j = 0;
+            }
+            else{
+                if (j<=4) j++;
+                else j = 0;
+                memcpy(tempdata[j],buffer,(strlen(buffer)-1)); 
+            }
+            
+            memset(buffer, 0, sizeof(buffer));
+            //send(sock, msg, strlen(msg),0);
+        }
     }
 }
 
