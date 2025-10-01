@@ -83,7 +83,10 @@ void chat (int sock){
             printf("%s",buffer);
 
             if (strncmp(buffer, "UPDATELIST",9) == 0){
+                memset(data, 0, sizeof(data));  
                 memcpy(data, tempdata, sizeof(tempdata));
+                
+                memset(tempdata, 0, sizeof(tempdata));  
                 j = 0;
             }
             else{
