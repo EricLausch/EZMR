@@ -12,9 +12,6 @@
 //
 #define ENTRYLEN 32
 
-//TBD
-// Server socket beenden bei ^C
-
 void chat(int);
 
 int main (void){
@@ -91,7 +88,7 @@ void chat (int sock){
             send(sock, gb, strlen(gb),0);
             exit(0);
         }
-        else if (strncmp(buffer, "GETLIST", 6) == 0){
+        else if (strncmp(buffer, "GETLIST", 7) == 0){
             for (int i = 0; i <= (sizeof(data)/ENTRYLEN); i++)
             {
                 if (data[i][0] != '\0'){
@@ -114,7 +111,7 @@ void chat (int sock){
         else{
             //printf("%s",buffer);
 
-            if (strncmp(buffer, "UPDATELIST",9) == 0){
+            if (strncmp(buffer, "UPDATELIST",10) == 0){
                 memset(data, 0, sizeof(data));  
                 memcpy(data, tempdata, sizeof(tempdata));
 
@@ -127,8 +124,8 @@ void chat (int sock){
                 memcpy(tempdata[j],buffer,(strlen(buffer)-1)); 
             }
 
-            memset(buffer, 0, sizeof(buffer));  //Buffer löschen
-            //send(sock, msg, strlen(msg),0);
+        memset(buffer, 0, sizeof(buffer));  //Buffer löschen
+        //send(sock, msg, strlen(msg),0);
         }
     }
 }
