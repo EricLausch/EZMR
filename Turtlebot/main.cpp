@@ -31,6 +31,8 @@ const int MySerialRX = 16; // RX pin
 const int MySerialTX = 17; // TX pin
 HardwareSerial MySerial(2);
 
+#define MOTOR_MIN = 10
+#define MOTOR_MAX = 2
 
 #define WIFI_SSID     "ROS_Net"
 #define WIFI_PASSWORD "12345678"
@@ -67,6 +69,7 @@ void error_loop() {
   }
 }
 void cmd_vel_callback(const void *msgin);
+void fmap(flaot val, flaot in_min, float in_max, float out_min, float out_max);
 
 // Timer-Callback-Funktion
 void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
@@ -74,6 +77,25 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
   if (timer == NULL){
     return;
   }
+
+  float linear = constrain(msg.linear.x, -1, 1);
+  float angular = constrain(msg.angular.z, -1, 1);
+  float b = 84; //mm
+  float r = 42; //mm
+
+  w_r = ((linear+angular)*b) / r;
+  w_l = ((linear-angular)*b) / r;
+
+  uint8_t speed_r = (uint8_t) fmap(fabs(w_r), 0, 1 MOTOR_MIN, MOTOR_MAX);
+  uint8_t speed_l = (uint8_t) fmap(fabs(w_l), 0, 1 MOTOR_MIN, MOTOR_MAX);
+
+  printf("%d, %d \n", speed_r, speed_l);
+
+  uint8_t MotorR[] = {0xAA, 0x02, 0x1, 0x0, 0x0, speed_r}; 
+  uint8_t MotorL[] = {0xAA, 0x01, 0x1, 0x1, 0x0, speed_l};
+
+  //MySerial.write(MotorR, sizeof(MotorR));
+  //MySerial.write(MotorL, sizeof(MotorL));
 }
 
 void setup() {
@@ -145,9 +167,9 @@ void cmd_vel_callback(const void *msgin){
 
   auto *t = (const geometry_msgs__msg__Twist *)msgin;
   digitalWrite(LED, HIGH);
-  Serial.printf("test");
-  MySerial.write(MotorL, sizeof(MotorL));
-  MySerial.write(MotorR, sizeof(MotorR));
+  //Serial.printf("test");
+  //MySerial.write(MotorL, sizeof(MotorL));
+  //MySerial.write(MotorR, sizeof(MotorR));
   delay(1000);
   digitalWrite(LED, LOW);
 }
@@ -156,5 +178,9 @@ void loop() {
   
   RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(5)));
   delay(1);
+}
+
+float fmap(float val, float in_min, float in_max, float out_min, float out_max) {
+    return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
