@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 
+#define PORT 12345
 
 void chat(int);
 
@@ -21,7 +22,7 @@ int main (void){
     memset( &server, 0, sizeof (server));
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = htonl(INADDR_ANY);
-    server.sin_port = htons(12345);
+    server.sin_port = htons(PORT);
 
     if(bind(server_socket, (struct sockaddr*)&server, sizeof(server)) < 0){
         printf ("Binding error\n");
@@ -29,6 +30,8 @@ int main (void){
 
     listen(server_socket, 3);
     len = sizeof(client);
+
+    printf("Server startet on port %d\n", PORT);
 
     while (1) {
 

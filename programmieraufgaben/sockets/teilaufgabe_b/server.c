@@ -7,6 +7,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#define PORT 12345
+
 void chat(int);
 
 int main (void){
@@ -21,7 +23,7 @@ int main (void){
     memset( &server, 0, sizeof (server));
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = htonl(INADDR_ANY);
-    server.sin_port = htons(12345);
+    server.sin_port = htons(PORT);
 
     if(bind(server_socket, (struct sockaddr*)&server, sizeof(server)) < 0){
         perror("Binding error");
@@ -30,6 +32,8 @@ int main (void){
 
     listen(server_socket, 3);
     len = sizeof(client);
+
+    printf("Server startet on port %d\n", PORT);
 
     while (1) {
 
@@ -59,7 +63,7 @@ void chat (int sock){
     while(1){
         read(sock, buffer, sizeof(buffer)-1);
         printf("%s",buffer);
-        
+
         if (strncmp(buffer, "PING", 4) == 0){
             msg = "PONG\n";
             send(sock, msg, strlen(msg),0);
