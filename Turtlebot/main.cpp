@@ -13,10 +13,8 @@
 
 #include <geometry_msgs/msg/twist.h>
 
-// Sicherstellen, dass Arduino Serial Transport verwendet wird
-#if !defined(MICRO_ROS_TRANSPORT_ARDUINO_SERIAL)
-  #error This example is only available for Arduino framework with serial transport.
-#endif
+#include <WiFi.h>
+
 
 // Definition der ROS-Objekte
 rcl_subscription_t subscriber;
@@ -33,11 +31,21 @@ const int MySerialRX = 16; // RX pin
 const int MySerialTX = 17; // TX pin
 HardwareSerial MySerial(2);
 
+
+#define WIFI_SSID     "ROS_Net"
+#define WIFI_PASSWORD "12345678"
+#define AGENT_IP      "10.42.0.1"
+#define AGENT_PORT    8888
+
+
 // dir = 0: Gegen Uhrzeigersinn
 // mode = 1: Dauerbetrieb
 
-uint8_t MotorL[] = {0xAA, 0x01, 0x1, 0x1, 0x0, 0x2};
-uint8_t MotorR[] = {0xAA, 0x02, 0x1, 0x0, 0x0, 0x2};   // Startbyte / ID Motor Rechts / Modus / Drehrichtung / Parameter
+uint8_t MotorL[] = {0xAA, 0x01, 0x1, 0x1, 0x00, 0x10};
+uint8_t MotorR[] = {0xAA, 0x02, 0x1, 0x0, 0x00, 0x10};   // Startbyte / ID Motor Rechts / Modus / Drehrichtung / Parameter
+
+uint8_t MotorL_stopp[] = {0xAA, 0x01, 0x0, 0x1, 0x0, 0x0};
+uint8_t MotorR_stopp[] = {0xAA, 0x02, 0x0, 0x0, 0x0, 0x0};
 
 // Makros zur Fehlerbehandlung
 #define RCCHECK(fn) { \
@@ -72,8 +80,26 @@ void setup() {
   
   MySerial.begin(9600, SERIAL_8N1, MySerialRX, MySerialTX); // Initialize MySerial with a baud rate of 115200, 8 data bits, no parity, 1 stop bit
   Serial.begin(115200);
-  set_microros_serial_transports(Serial);
-  delay(2000);
+  delay(1000);
+
+  MySerial.write(MotorL_stopp, sizeof(MotorL_stopp));
+  MySerial.write(MotorR_stopp, sizeof(MotorR_stopp));
+
+  // WLAN verbinden (2.4 GHz)
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(200);
+    Serial.print(".");
+  }
+  Serial.printf("\nWiFi OK, ESP IP: %s\n", WiFi.localIP().toString().c_str());
+  
+
+  IPAddress agent_ip;
+  agent_ip.fromString(AGENT_IP);
+  set_microros_wifi_transports(WIFI_SSID, WIFI_PASSWORD, agent_ip, AGENT_PORT);
+
 
   pinMode(LED, OUTPUT);
 
@@ -119,6 +145,7 @@ void cmd_vel_callback(const void *msgin){
 
   auto *t = (const geometry_msgs__msg__Twist *)msgin;
   digitalWrite(LED, HIGH);
+  Serial.printf("test");
   MySerial.write(MotorL, sizeof(MotorL));
   MySerial.write(MotorR, sizeof(MotorR));
   delay(1000);
