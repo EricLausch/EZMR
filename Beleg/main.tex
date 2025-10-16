@@ -1,0 +1,48 @@
+\documentclass[
+paper = a4,
+fontsize = 12pt,
+headsepline=true,
+footsepline = true,
+plainfootsepline = true,
+numbers=noenddot,
+parskip,								
+listof = totoc,
+bibliography = totoc,
+index = totoc,
+twoside = false,
+headings = small
+]{scrreprt}
+
+\usepackage[sorting=none]{biblatex}
+\usepackage{acronym}
+
+\input{config}
+\addbibresource{Literatur.bib}
+\makeindex
+
+\begin{document}
+
+\input {Deckblatt}
+
+\pagenumbering{Roman}
+\setcounter{page}{2}
+
+\tableofcontents
+\input{Abkürzung}
+\listoffigures
+\clearpage
+
+\pagenumbering{arabic}
+\setcounter{page}{5}
+
+\input{Kapitel/einleitung}
+\input{Kapitel/aufgaben}
+\input{Kapitel/vroboter}
+\input{Kapitel/proboter}
+
+\printbibliography
+
+\cleardoubleoddpage
+
+\addchap{Anhang}
+\end{document}
