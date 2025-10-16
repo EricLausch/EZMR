@@ -40,19 +40,17 @@ int main (void){
     printf("Connected to %s:%d\n", SERVER_IP, PORT);
 
     while(1){
-
         // send command to server
         printf("> ");
         fgets(buffer, sizeof(buffer), stdin);
         send(client_socket, buffer, strlen(buffer), 0);
-        
-        read(client_socket, buffer, sizeof(buffer)-1);
 
-        if (strcmp(buffer, "QUIT") == 0){
+        if (strcmp(buffer, "QUIT\n") == 0){
             printf("Disconnected \n");
             exit(0);
         }
 
+        read(client_socket, buffer, sizeof(buffer)-1);
         printf("%s" ,buffer);
 
         fd_set readfds;

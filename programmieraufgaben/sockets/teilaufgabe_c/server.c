@@ -13,8 +13,74 @@
 #define MAX_LEN 1024
 
 char msg_log[MAX_MSGS][MAX_LEN];
+int log_count = 0;
 
-void chat(int, const char *);
+void server_log(const char *sender, const char *receiver, const char *content,
+                char log[][MAX_LEN], int *log_count, int mode){
+
+    if (*log_count >= MAX_MSGS) return;
+
+    char entry[MAX_LEN];
+
+    // add timestamp to entry
+    time_t now;
+    now = time(0);
+    strcpy(entry,ctime(&now));
+     entry[strlen(entry)-1]='\0';
+
+    // add content to entry
+    strcat(entry," ");
+    strcat(entry, sender);
+    strcat(entry," to ");
+    strcat(entry,receiver);
+    strcat(entry," ");
+    strcat(entry,content);
+    if (mode == 1) strcat(entry, " (edited)\n");
+
+    strncpy(log[*log_count], entry, MAX_LEN -1);
+    log[*log_count][MAX_LEN -1] = '\0';
+    if (mode == 0) (*log_count)++;
+}
+
+void comm (int sock, const char *client_ip){
+    
+    char* msg;
+    char buffer[1024] = {0};
+
+    while(1){
+        read(sock, buffer, sizeof(buffer)-1);
+        printf("%s",buffer);
+
+        server_log(client_ip, "SERVER", buffer, msg_log, &log_count, 0);
+        
+        if (strncmp(buffer, "PING", 4) == 0){
+            msg = "PONG\n";
+            send(sock, msg, strlen(msg),0);
+            server_log("SERVER", client_ip, msg, msg_log, &log_count, 0);
+        }
+        else if (strncmp(buffer, "GETLOG",6) == 0){
+            server_log("SERVER", client_ip, "SENT LOG\n", msg_log, &log_count, 0);
+            for (int i = 0; i < sizeof(msg_log)/MAX_LEN; i++){
+                if (msg_log[i][0] != '\0'){
+                    send(sock, msg_log[i], strlen(msg_log[i]), 0);
+                }
+            }
+            msg = "---END OF LOG---\n";
+            send(sock, msg, strlen(msg), 0);
+        }
+        else if (strncmp(buffer, "EDITLOG",7) == 0){
+            int id = 0;
+            char newtxt[300] = {0};
+            if (sscanf(buffer, "EDITLOG %d %[^\n]", &id, newtxt) >= 2){
+                server_log(client_ip, "SERVER", newtxt, msg_log, &id, 1);
+                send(sock, "\0", 1 ,0);
+            }
+        }
+        else send(sock, "\0", 1 ,0);
+    
+        memset(buffer, 0, sizeof(buffer));
+    }
+}
 
 int main (void){
 
@@ -42,7 +108,6 @@ int main (void){
     printf("Server startet on port %d\n", PORT);
 
     while (1) {
-
         new_sock = accept(server_socket,(struct sockaddr*)&client, &len);
         client_ip = inet_ntoa(client.sin_addr);
         
@@ -54,60 +119,14 @@ int main (void){
         int pid = fork();
         if (pid == 0){
             close(server_socket);
-            chat(new_sock, client_ip);
+            comm(new_sock, client_ip);
             close(new_sock);
             exit(0);
         }
-        
         close(new_sock); 
     }
 }
 
-void chat (int sock, const char *client_ip){
-    
-    char* msg;
-    char buffer[1024] = {0};
-    char entry[1024] = {0};
-    int log_count = 0;
 
-    while(1){
-        read(sock, buffer, sizeof(buffer)-1);
-        printf("%s",buffer);
 
-        time_t now;
-        now = time(0);
-
-        strcpy(entry,ctime(&now));
-        entry[strlen(entry)-1]='\0';
-
-        strcat(entry," ");
-        strcat(entry, client_ip);
-        strcat(entry," ");
-        strcat(entry,"to SERVER ");
-        strcat(entry,buffer);
-
-        if (log_count < MAX_MSGS){
-            strncpy(msg_log[log_count], entry, MAX_LEN -1);
-            msg_log[log_count][MAX_LEN -1] = '\0';
-            log_count++;
-        }
-        
-        if (strncmp(buffer, "PING", 4) == 0){
-            msg = "PONG\n";
-            send(sock, msg, strlen(msg),0);
-        }
-        else if (strncmp(buffer, "GETLOG",6) == 0){
-            for (int i = 0; i < sizeof(msg_log)/MAX_LEN; i++){
-                if (msg_log[i][0] != '\0'){
-                    send(sock, msg_log[i], strlen(msg_log[i]), 0);
-                }
-            }
-            msg = "---END OF LOG---\n";
-            send(sock, msg, strlen(msg), 0);
-        }
-        else send(sock, "\0", 1 ,0);
-    
-        memset(buffer, 0, sizeof(buffer));
-    }
-}
 
