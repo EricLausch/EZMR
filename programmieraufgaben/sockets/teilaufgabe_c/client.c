@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#define SERVER_IP "127.0.0.0"
+#define SERVER_IP "127.0.0.1"
 #define PORT 12345
 
 
@@ -32,7 +32,7 @@ int main (void){
     server.sin_port = htons(PORT);
 
     if (connect(client_socket, (struct sockaddr*)&server, sizeof(server)) < 0){
-        perror("Connection error");
+        perror("Connection failed");
         close(client_socket);
         exit(EXIT_FAILURE);
     }
@@ -41,18 +41,41 @@ int main (void){
 
     while(1){
 
+        // send command to server
         printf("> ");
         fgets(buffer, sizeof(buffer), stdin);
-
         send(client_socket, buffer, strlen(buffer), 0);
-        buffer[strcspn(buffer, "\n")] = 0;
+        
+        read(client_socket, buffer, sizeof(buffer)-1);
 
         if (strcmp(buffer, "QUIT") == 0){
             printf("Disconnected \n");
             exit(0);
         }
 
-        read(client_socket, buffer, sizeof(buffer)-1);
         printf("%s" ,buffer);
+
+        fd_set readfds;
+        struct timeval tv;
+        int rv;
+        char recvbuf[1024];
+
+        while(1){
+            FD_ZERO(&readfds);
+            FD_SET(client_socket, &readfds);
+            tv.tv_sec = 0;
+            tv.tv_usec = 200000;
+
+            rv = select(client_socket + 1, &readfds, NULL, NULL, &tv);
+            if (rv <= 0) break;
+            ssize_t n = recv(client_socket, recvbuf, sizeof(recvbuf) - 1, 0);
+            if (n <= 0) {
+                close(client_socket);               
+                exit(0);
+            }
+
+            recvbuf[n] = '\0';
+            printf("%s", recvbuf);
+        }
     }
 }
