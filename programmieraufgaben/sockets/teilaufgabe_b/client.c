@@ -38,6 +38,11 @@ int main (void){
     }
 
     printf("Connected to %s:%d\n", SERVER_IP, PORT);
+    printf("available commands:\n");
+    printf("PING: send ping to server\n");
+    printf("QUIT: disconnect from server\n");
+    printf("---------------------\n");
+
 
     while(1){
 
