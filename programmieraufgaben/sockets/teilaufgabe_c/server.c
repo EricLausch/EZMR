@@ -60,7 +60,7 @@ void comm (int sock, const char *client_ip){
         }
         else if (strncmp(buffer, "GETLOG",6) == 0){
             server_log("SERVER", client_ip, "SENT LOG\n", msg_log, &log_count, 0);
-            for (int i = 0; i < sizeof(msg_log)/MAX_LEN; i++){
+            for (int i = 0; i < MAX_MSGS; i++){
                 if (msg_log[i][0] != '\0'){
                     send(sock, msg_log[i], strlen(msg_log[i]), 0);
                 }
