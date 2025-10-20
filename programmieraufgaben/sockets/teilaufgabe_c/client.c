@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <sys/select.h>
 
 #define SERVER_IP "127.0.0.1"
 #define PORT 12345
@@ -38,6 +39,13 @@ int main (void){
     }
 
     printf("Connected to %s:%d\n", SERVER_IP, PORT);
+    printf("---------------------\n");
+    printf("available commands:\n");
+    printf("PING: send ping to server\n");
+    printf("GETLOG: request log from server\n");
+    printf("EDITLOG x newtext: edit specified entrytext\n");
+    printf("QUIT: disconnect from server\n");
+    printf("---------------------\n");
 
     while(1){
         // send command to server
