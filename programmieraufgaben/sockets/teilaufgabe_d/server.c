@@ -12,7 +12,6 @@
 #define PORT 12345
 #define MAX_MSGS 100
 #define MAX_LEN 1024
-#define MAX_BUFFER 1024
 
 char msg_log[MAX_MSGS][MAX_LEN];
 int log_count = 0;
