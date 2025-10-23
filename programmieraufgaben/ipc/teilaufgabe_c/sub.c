@@ -2,6 +2,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <string.h>
+#include <errno.h>
 
 // structure for message queue
 struct mesg_buffer {
@@ -27,19 +28,21 @@ int main()
 
         // msgsnd to send message
         message.mesg_type = 1;
-        msgsnd(msgid, &message, sizeof(message), 0);
+        msgsnd(msgid, &message, sizeof(message.mesg_text), 0);
 
-        // receive answer
-        msgctl(msgid,IPC_STAT, &buf);
-        unsigned long count = buf.msg_qnum;
-        
-
-        for (unsigned long i = 0; i <= count; i++){ 
-            msgrcv(msgid, &message, sizeof(message), 2, 0);
-            printf("answer from MAIN: %s", message.mesg_text);
+        ssize_t r = msgrcv(msgid, &message, sizeof(message.mesg_text), 2, 0);
+        if (r == -1) {
+            if (errno != EINTR) perror("msgrcv");
+            continue;
         }
-
+        printf("%s", message.mesg_text);
         if (strncmp(message.mesg_text, "BYE", 3) == 0) break;
+
+        while ((r = msgrcv(msgid, &message, sizeof(message.mesg_text), 2, IPC_NOWAIT)) != -1) {
+            printf("%s", message.mesg_text);
+        }
+        if (r == -1 && errno != ENOMSG) perror("msgrcv");
+
     }
     
     return 0;

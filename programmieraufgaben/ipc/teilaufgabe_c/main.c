@@ -5,11 +5,13 @@
 
 #include <time.h>
 
-#define MAX_MESGS 10
+#define MAX_MESGS 100
 #define MAX_LEN 100
 
 char msg_log[MAX_MESGS][MAX_LEN];
 int log_count = 0;
+
+int msgid;
 
 // structure for message queue
 struct mesg_buffer {
@@ -34,10 +36,15 @@ void server_log(char log[][MAX_LEN], const char *content, int *log_count){
     (*log_count)++;
 }
 
+void send(const char *text, int message_type){
+    message.mesg_type = message_type;
+    strncpy(message.mesg_text, text, sizeof(message.mesg_text)-1);
+    msgsnd(msgid, &message, sizeof(message.mesg_text), 0);
+}
+
 int main()
 {
     key_t key;
-    int msgid;
 
     // ftok to generate unique key
     key = ftok("progfile", 65);
@@ -49,40 +56,41 @@ int main()
     while (1)
     {
         // msgrcv to receive message
-        if (msgrcv(msgid, &message, sizeof(message), 1, 0) == -1){
+        if (msgrcv(msgid, &message, sizeof(message.mesg_text), 1, 0) == -1){
             perror("msgrcv");
             break;
         }
         // display the message
         server_log(msg_log, message.mesg_text,&log_count);
-        printf("Data Received is : %s", message.mesg_text);
+        printf("Data Received: %s", message.mesg_text);
 
         if (strncmp(message.mesg_text, "PING", 4) == 0){
-            message.mesg_type = 2;
-            strncpy(message.mesg_text, "PONG\n", sizeof(message.mesg_text)-1);
-            msgsnd(msgid, &message, sizeof(message), 0);
+            server_log(msg_log,"PONG\n", &log_count);
+            send("PONG\n",2);
         }
         else if (strncmp(message.mesg_text, "SHUTDOWN", 8) == 0){
-            message.mesg_type = 2;
-            strncpy(message.mesg_text, "BYE\n", sizeof(message.mesg_text)-1);
-            msgsnd(msgid, &message, sizeof(message), 0);
+            server_log(msg_log,"BYE!\n", &log_count);
+            send("BYE!\n",2);
             break;
         }
         else if (strncmp(message.mesg_text, "GETLOG", 6) == 0){
             server_log(msg_log,"SENT LOG\n", &log_count);
-            for (int i = 0; i < MAX_MESGS; i++){
-                message.mesg_type = 2;
-                strncpy(message.mesg_text, msg_log[i], sizeof(message.mesg_text)-1);
-                msgsnd(msgid, &message, sizeof(message),0);
+            for (int i = 0; i < log_count; i++){
+                send(msg_log[i],2);
             }
-            message.mesg_type = 2;
-            strncpy(message.mesg_text, "------END OF LOG------\n", sizeof(message.mesg_text)-1);
-            msgsnd(msgid, &message, sizeof(message), 0); 
+            send("------END OF LOG------\n",2);
         }
-        else {
-            strncpy(message.mesg_text, " \n", sizeof(message.mesg_text)-1);
-            msgsnd(msgid, &message, sizeof(message), 0);
+        else if (strncmp(message.mesg_text, "EDITLOG", 7) ==0){
+            int id;
+            char newtxt[100];
+            if (sscanf(message.mesg_text, "EDITLOG %d %s", &id, newtxt) >= 2){
+                strcat(newtxt, "\n");
+                server_log(msg_log, newtxt, &id);
+                send("OK\n",2);
+            }
         }
+        else send("\n",2);
+
     }
     
     // to destroy the message queue
