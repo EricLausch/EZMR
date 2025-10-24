@@ -8,6 +8,7 @@
 #include "mq.h"
 
 int client_qid;
+struct client_message cmsg;
 
 void cleanup(int sig){
     if(msgctl(client_qid, IPC_RMID, NULL) == -1){
@@ -16,9 +17,24 @@ void cleanup(int sig){
     exit(0);
 }
 
+void send(){
+
+    int receiver_id;
+    char input[100];
+
+    printf("> ");
+    fgets(input,sizeof(input),stdin);
+    sscanf(input, "%d", &receiver_id);
+    char *msg = strchr(input, ' ');
+    strcpy(cmsg.mesg_text, msg ? msg + 1 : "");
+
+    if (msgsnd(receiver_id, &cmsg, sizeof(cmsg.mesg_text), 0) == -1){
+        perror("msgsnd");
+    }
+}
+
 int main()
 {
-    struct client_message cmsg;
     struct server_message smsg;
     
     int server_id = msgget(SERVER_KEY, 0);
@@ -31,14 +47,10 @@ int main()
 
     while (1)
     {
-        printf("> ");
-        fgets(cmsg.mesg_text,sizeof(cmsg.mesg_text),stdin);
+
 
         // msgsnd to send message
-        if (msgsnd(server_id, &cmsg, sizeof(cmsg.mesg_text), 0) == -1){
-            perror("msgsnd");
-            continue;
-        }
+        send();
 
         ssize_t r = msgrcv(client_qid, &smsg, sizeof(smsg.mesg_text), 2, 0);
         if (r == -1) {
