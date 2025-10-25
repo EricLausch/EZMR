@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
+#include <sys/select.h>
+#include <unistd.h>
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
@@ -17,18 +19,22 @@ void cleanup(int sig){
     exit(0);
 }
 
-void send(){
+void send(int server_qid){
 
-    int receiver_id;
-    char input[100];
+    fgets(cmsg.mesg_text,sizeof(cmsg.mesg_text),stdin);
 
-    printf("> ");
-    fgets(input,sizeof(input),stdin);
-    sscanf(input, "%d", &receiver_id);
-    char *msg = strchr(input, ' ');
-    strcpy(cmsg.mesg_text, msg ? msg + 1 : "");
+    if (strncmp(cmsg.mesg_text, "SEND",4) == 0){
 
-    if (msgsnd(receiver_id, &cmsg, sizeof(cmsg.mesg_text), 0) == -1){
+        int id = 0;
+        char msg[100];
+        if (sscanf(cmsg.mesg_text, "SEND %d %[^\n]", &id, msg) == 2){
+            cmsg.target_qid = id;
+            strncpy(cmsg.mesg_text, msg, sizeof(cmsg.mesg_text) - 1);
+        }
+    }
+    else cmsg.target_qid = server_qid;
+
+    if (msgsnd(server_qid, &cmsg, sizeof(cmsg) - sizeof(long), 0) == -1){
         perror("msgsnd");
     }
 }
@@ -37,7 +43,7 @@ int main()
 {
     struct server_message smsg;
     
-    int server_id = msgget(SERVER_KEY, 0);
+    int server_qid = msgget(SERVER_KEY, 0);
     client_qid = msgget(IPC_PRIVATE, PERM | IPC_CREAT);
 
     cmsg.mesg_type = 1;
@@ -48,23 +54,24 @@ int main()
     while (1)
     {
 
+        fd_set readfds;
+        FD_ZERO(&readfds);
+        FD_SET(STDIN_FILENO, &readfds);
+
+        struct timeval tv;
+        tv.tv_sec = 0;
+        tv.tv_usec = 500000;
+
+        int ret = select(STDIN_FILENO +1, &readfds, NULL, NULL, &tv);
 
         // msgsnd to send message
-        send();
+        if (ret > 0 && FD_ISSET(STDIN_FILENO, &readfds)) send(server_qid);
 
-        ssize_t r = msgrcv(client_qid, &smsg, sizeof(smsg.mesg_text), 2, 0);
-        if (r == -1) {
-            if (errno != EINTR) perror("msgrcv");
-            continue;
+        while (msgrcv(client_qid, &smsg, sizeof(smsg.mesg_text), 0, IPC_NOWAIT) != -1){
+            printf("%s\n", smsg.mesg_text);
+            fflush(stdout);
         }
-        printf("%s", smsg.mesg_text);
-        if (strncmp(smsg.mesg_text, "BYE", 3) == 0) break;
-
-        while ((r = msgrcv(client_qid, &smsg, sizeof(smsg.mesg_text), 2, IPC_NOWAIT)) != -1) {
-            printf("%s", smsg.mesg_text);
-        }
-        if (r == -1 && errno != ENOMSG) perror("msgrcv");
-
+        if (errno != ENOMSG) perror("msgrcv");
     }
     
     return 0;
