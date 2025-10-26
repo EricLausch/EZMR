@@ -1,6 +1,6 @@
 \babel@toc {ngerman}{}\relax 
-\contentsline {chapter}{\nonumberline Abkürzungsverzeichnis}{III}{chapter*.2}%
-\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{IV}{chapter*.3}%
+\contentsline {chapter}{\nonumberline Abkürzungsverzeichnis}{IV}{chapter*.2}%
+\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{V}{chapter*.3}%
 \contentsline {chapter}{\numberline {1}Einleitung}{5}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Programmieraufgaben}{6}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Sockets}{6}{section.2.1}%
@@ -14,7 +14,39 @@
 \contentsline {subsection}{\numberline {2.2.3}Teilaufgabe C}{6}{subsection.2.2.3}%
 \contentsline {subsection}{\numberline {2.2.4}Teilaufgabe D}{6}{subsection.2.2.4}%
 \contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{7}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Steuerung eines professionellen Roboters mit ROS2}{8}{chapter.4}%
-\contentsline {chapter}{\nonumberline Literatur}{9}{chapter*.4}%
-\contentsline {chapter}{\nonumberline Anhang}{10}{chapter*.5}%
+\contentsline {section}{\numberline {3.1}Einrichtung der Arbeitsumgebung und ROS~2-Paket}{7}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Installation von ROS~2 Humble}{7}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Erstellung eines ROS~2-Workspaces}{8}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Ergebnisse}{8}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Erstinbetriebnahme}{9}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Grundprinzip von Nodes und Topics}{9}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Start der Turtlesim-Umgebung}{9}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Untersuchung der ROS-Kommunikation}{10}{subsection.3.2.3}%
+\contentsline {chapter}{\numberline {4}TurtleBot mit ESP32}{12}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Arbeitsumgebung}{12}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Betriebssystem und Systemkonfiguration}{12}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Entwicklungsumgebung PlatformIO}{13}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Netzwerk- und Agentumgebung}{13}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Erkenntnisse}{14}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Turtlesim Teleop}{14}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Micro-ROS-Struktur und Node-Konfiguration}{14}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Kommunikation Motorcontroller}{15}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Implementierungsdetails}{15}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Fehlerquellen und Besonderheiten}{16}{subsection.4.2.4}%
+\contentsline {subsubsection}{\nonumberline Ergebnisse}{17}{subsubsection*.5}%
+\contentsline {section}{\numberline {4.3}Abfahren von Polygonen}{17}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Ziel und Aufbau}{18}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Steuerlogik}{18}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Implementierungsdetails}{18}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Aufruf und Parametrisierung}{19}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Beobachtungen}{20}{subsection.4.3.5}%
+\contentsline {section}{\numberline {4.4}Sensorintegration: Bumper mit Host-seitiger Sicherheitslogik}{21}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Zielsetzung}{21}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Systemübersicht und Topics}{21}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Implementierung}{22}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Parameter der Safety-Node}{23}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Ergebnis}{23}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Probleme}{23}{subsection.4.4.6}%
+\contentsline {chapter}{\numberline {5}Steuerung eines professionellen Roboters mit ROS2}{25}{chapter.5}%
+\contentsline {chapter}{\nonumberline Anhang}{26}{chapter*.11}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

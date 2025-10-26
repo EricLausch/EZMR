@@ -73,3 +73,73 @@
 \automark[chapter]{chapter}
 \ohead{\color{\chaptercolor}\headmark}
 \ofoot*{\color{\chaptercolor}\pagemark}
+
+
+
+
+
+
+% Erics Pakete
+
+\definecolor{codebg}{rgb}{0.97,0.97,0.97}        % Hintergrundfarbe
+\definecolor{keywordcolor}{rgb}{0.0,0.3,0.7}     % Blau für Keywords
+\definecolor{stringcolor}{rgb}{0.0,0.5,0.0}      % Dunkelgrün für Strings
+\definecolor{commentcolor}{rgb}{0.5,0.5,0.5}     % Grau für Kommentare
+\definecolor{framecolor}{rgb}{0.85,0.85,0.85}    % Rahmenfarbe
+
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{listings}
+\lstdefinestyle{quartus}{
+	language=verilog,
+	backgroundcolor=\color{codebg},
+	basicstyle=\ttfamily\small,
+	frame=single,
+	rulecolor=\color{framecolor},
+	frameround=tttt,
+	keywordstyle=\color{keywordcolor}\bfseries,
+	commentstyle=\color{commentcolor}\itshape,
+	stringstyle=\color{stringcolor},
+	showstringspaces=false,
+	tabsize=4,
+	captionpos=b,
+	breaklines=true,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=6pt,
+	xleftmargin=1em,
+	framexleftmargin=1em,
+}
+
+% Verilog-Sprache mit Syntaxfarben
+\lstdefinelanguage{verilog}{
+	keywords={always, assign, begin, case, else, end, if, module, wire, reg, input, output, logic, or, posedge, negedge, default, endcase},
+	keywordstyle=\color{keywordcolor}\bfseries,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{commentcolor}\itshape,
+	stringstyle=\color{stringcolor},
+	sensitive=true
+}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{fit,backgrounds,positioning,arrows.meta}
+
+\lstset{
+	basicstyle=\ttfamily\normalsize,  % gleiche Schriftgröße wie Fließtext
+	breaklines=true,                  % Zeilen automatisch umbrechen
+	breakatwhitespace=true,           % Umbruch an Leerzeichen
+	columns=fullflexible
+}
+
+% Verilog-Sprache mit Syntaxfarben
+\lstdefinelanguage{verilog}{
+	keywords={always, assign, begin, case, else, end, if, module, wire, reg, input, output, logic, or, posedge, negedge, default, endcase},
+	keywordstyle=\color{keywordcolor}\bfseries,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{commentcolor}\itshape,
+	stringstyle=\color{stringcolor},
+	sensitive=true
+}

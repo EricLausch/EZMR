@@ -1,3 +1,480 @@
 \newpage
 \chapter{Grundkonzepte von ROS2 mit einem Versuchsroboter}
-\vspace{-15 pt}
+
+\noindent
+Ziel dieses Kapitels ist es, die grundlegenden Konzepte und Arbeitsweisen von ROS~2 praxisnah zu erlernen und anhand eines Versuchsroboters schrittweise umzusetzen. 
+Dazu werden zunächst die für das Praktikum erforderliche Arbeitsumgebung eingerichtet, die wesentlichen ROS~2-Komponenten erläutert und ein erstes eigenes Paket erstellt. 
+Im weiteren Verlauf werden die Prinzipien der Kommunikation zwischen Nodes, Topics und Nachrichtenformaten anhand der \textit{turtlesim}-Simulation demonstriert. 
+Dieses Beispiel dient als Grundlage, um das Zusammenspiel zwischen Steuerkommandos, Nachrichtenübertragung und der Bewegung eines Roboters nachzuvollziehen. 
+
+Darauf aufbauend werden die gewonnenen Erkenntnisse später auf reale Hardware übertragen, indem ein ESP32-Mikrocontroller als Micro-ROS-Node in das System integriert wird. 
+So entsteht ein durchgängiger Übergang von der Simulation im ROS-Umfeld hin zur physikalischen Roboterplattform, bei dem Konzepte wie Publisher/Subscriber-Kommunikation, Timings, QoS-Profile und Topic-Strukturen angewendet werden.
+
+\section{Einrichtung der Arbeitsumgebung und ROS~2-Paket}
+
+\subsection{Installation von ROS~2 Humble}
+\vspace{-0.4cm}
+Die Arbeit erfolgt auf Basis von Ubuntu 22.04 LTS, um die vom Praktikum vorgegebene Systemumgebung sicherzustellen. Anschließend wurde ROS~2 Humble gemäß der offiziellen Anleitung installiert.\footnote{\url{https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html}} 
+
+Die Installation erfolgte auszugsweise in folgenden Schritten:
+
+\begin{enumerate}
+	\item Konfiguration der Systemlokalisierung:
+	\begin{lstlisting}
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+	\end{lstlisting}
+	
+	\item Einbinden der ROS~2-Repositories und des GPG-Schlüssels:
+	\begin{lstlisting}
+sudo apt update
+sudo apt install software-properties-common curl
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/
+master/ros.asc | 
+sudo tee /usr/share/keyrings/ros-archive-keyring.gpg > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/
+share/keyrings/ros-archive-keyring.gpg]
+http://packages.ros.org/ros2/ubuntu jammy main" |
+sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+	\end{lstlisting}
+	
+	\item Installation von ROS~2 Desktop und weiteren Tools:
+	\begin{lstlisting}
+sudo apt update
+sudo apt install ros-humble-desktop
+sudo apt install ros-dev-tools
+	\end{lstlisting}
+	
+	\item Aktivierung der ROS-Umgebung:
+	\begin{lstlisting}
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+	\end{lstlisting}
+\end{enumerate}
+
+Zusätzlich wurde das Build-Tool \textit{colcon} installiert:
+\begin{lstlisting}
+sudo apt install python3-colcon-common-extensions
+\end{lstlisting}
+
+\subsection{Erstellung eines ROS~2-Workspaces}
+
+Zur strukturierten Organisation eigener Pakete wurde ein Arbeitsbereich eingerichtet:
+
+\begin{lstlisting}
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws
+colcon build
+source install/setup.bash
+\end{lstlisting}
+
+\subsection{Ergebnisse}
+Die Installation von ROS~2~Humble verlief nach anfänglicher Konfiguration der Paketquellen und Systemlokalisierung problemlos. Durch die Nutzung der offiziellen Ubuntu-Repositorys konnte eine stabile und vollständig kompatible Entwicklungsumgebung eingerichtet werden. 
+
+Mit der Einrichtung des ROS~2-Workspaces und der dauerhaften Aktivierung der ROS-Umgebungsvariablen in der \textit{.bashrc}-Datei war die Grundlage für die Entwicklung und Ausführung eigener Pakete geschaffen. Darüber hinaus wurde mit der Installation des Build-Systems \textit{colcon} eine einheitliche und reproduzierbare Build-Struktur sichergestellt.
+
+Damit war die technische Umgebung vollständig vorbereitet, um im weiteren Verlauf die Simulationsaufgaben, die Micro-ROS-Kommunikation, die Integration des ESP32 und die praktische Steuerung des Roboters umzusetzen.
+
+
+\section{Erstinbetriebnahme}
+
+Nach der erfolgreichen Installation von ROS~2~Humble erfolgte die erste praktische Arbeit mit der vorinstallierten Simulationsumgebung \textit{turtlesim}. Die \textit{turtlesim}-Anwendung stellt eine virtuelle Schildkröte bereit, die über Geschwindigkeitkommandos bewegt werden kann.
+
+\subsection{Grundprinzip von Nodes und Topics}
+In ROS basiert die Kommunikation auf einem Publish/Subscribe-Prinzip. 
+Ein \emph{Publisher} sendet Nachrichten an ein bestimmtes Topic, während ein oder mehrere \emph{Subscriber} diese Nachrichten empfangen. 
+Jede laufende Anwendung ist dabei eine \emph{Node}. 
+Bei \textit{turtlesim} gibt es beispielsweise die Node \textit{turtlesim\_node}, die das grafische Fenster und die Turtle darstellt, sowie die Node \textit{teleop\_turtle}, die Tastatureingaben des Benutzers in Geschwindigkeitskommandos übersetzt.
+
+\subsection{Start der Turtlesim-Umgebung}
+Zum Starten der Umgebung werden in zwei separaten Terminals die folgenden Befehle ausgeführt:
+\begin{lstlisting}
+# Terminal 1: startet die Simulation
+ros2 run turtlesim turtlesim_node
+
+# Terminal 2: startet die Steuerung per Tastatur
+ros2 run turtlesim turtle_teleop_key
+\end{lstlisting}
+
+Mit den Tasten \textit{W}, \textit{A}, \textit{S}, \textit{D} lässt sich die Turtle nach vorne, links, rückwärts und rechts bewegen. Dabei publiziert \textit{turtle\_teleop\_key} fortlaufend Nachrichten vom Typ\\ \textit{geometry\_msgs/msg/Twist} an das Topic \textit{/turtle1/cmd\_vel}, das wiederum von der Node \textit{turtlesim\_node} abonniert wird. 
+Dieses Zusammenspiel bildet das klassische ROS-Kommunikationsschema aus Publisher, Subscriber und Topic ab.
+
+\subsection{Untersuchung der ROS-Kommunikation}
+ROS~2 stellt zahlreiche Befehle zur Analyse und Kontrolle der Systemkommunikation bereit, die in den ersten Schritten besonders hilfreich sind:
+\begin{itemize}
+	\item \textit{ros2 node list} \\
+	Zeigt alle aktuell laufenden Nodes an, z.\,B.:\vspace{-0.2cm}
+	\begin{lstlisting}
+/turtlesim
+/teleop_turtle
+	\end{lstlisting}
+	\vspace{-0.4cm}
+	
+	\item \textit{ros2 topic list} \\
+	Listet alle aktiven Topics auf. Typischerweise erscheinen u.\,a.:\vspace{-0.2cm}
+	\begin{lstlisting}
+/turtle1/cmd_vel
+/turtle1/pose
+	\end{lstlisting}
+	\vspace{-0.4cm}
+	
+	\item \textit{ros2 topic info /turtle1/cmd\_vel} \\
+	Zeigt an, welcher Nachrichtentyp und welche Nodes an diesem Topic beteiligt sind (Publisher/Subscriber).\vspace{-0.4cm}
+	
+	\item \textit{ros2 topic echo /turtle1/cmd\_vel} \\
+	Gibt die in Echtzeit übertragenen Nachrichten auf der Konsole aus. Dadurch kann beobachtet werden, welche linearen und rotatorischen Geschwindigkeiten beim Drücken einer Taste publiziert werden.\vspace{-0.4cm}
+	
+	\item \textit{ros2 interface show geometry\_msgs/msg/Twist} \\
+	Zeigt den Aufbau der \textit{Twist}-Nachricht, die aus den Vektoren \textit{linear} (für Vorwärts-/Rückwärtsbewegung) und \textit{angular} (für Rotationen) besteht.
+\end{itemize}
+
+Diese Befehle verdeutlichen die lose Kopplung der ROS-Komponenten und erleichtern das Verständnis, wie Daten in einem ROS-System fließen.\\
+Nach dem erfolgreichen Start der \textit{turtlesim}-Simulation wurden eigene Nodes erstellt, die selbstständig Nachrichten an das Topic \textit{/turtle1/cmd\_vel} senden. Dadurch konnte die Turtle automatisiert bewegt werden. Dieses Vorgehen bildet die Grundlage für komplexere Szenarien, wie etwa die spätere Übertragung derselben Steuerbefehle an den realen Roboter.
+
+
+
+
+
+
+
+
+
+\chapter{TurtleBot mit ESP32}
+
+\section{Arbeitsumgebung}
+
+Die Implementierung und Inbetriebnahme des Micro-ROS-Systems erfolgte nativ unter \textbf{Ubuntu 22.04.5 LTS}. Die grundlegende Installation der benötigten Softwarekomponenten wie \textit{ROS 2 Humble}, der \textit{Micro-ROS-Agent} sowie die Einbindung von \textit{PlatformIO} in \textit{Visual Studio Code} erfolgte gemäß der offiziellen Praktikumsanleitung \cite{2025:praktikumsanleitung}. Im Folgenden werden daher weniger die Installationsschritte selbst beschrieben, sondern vielmehr die Erkenntnisse und Besonderheiten der praktischen Arbeitsumgebung zusammengefasst.
+
+\subsection{Betriebssystem und Systemkonfiguration}
+Da die Arbeit auf einem nativen Ubuntu-System ausgeführt wurde, war keine zusätzliche Virtualisierung notwendig. Dies bot Vorteile hinsichtlich der direkten Hardwareanbindung, insbesondere bei der seriellen Kommunikation mit dem ESP32. Während der Einrichtung stellte sich heraus, dass unter Ubuntu 22.04 standardmäßig bestimmte Kernelmodule geladen werden, die mit der seriellen Kommunikation über USB kollidieren. Insbesondere der \textit{Braille}-Treiber (\textit{brltty}) beansprucht häufig automatisch USB-Serial-Geräte (z.\,B. \textit{/dev/ttyUSB0}), wodurch keine Verbindung zu Mikrocontrollern aufgebaut werden kann. Das Deinstallieren bzw. Deaktivieren dieses Dienstes war zwingend erforderlich, um eine stabile Verbindung mit dem ESP32 herstellen zu können:
+\begin{lstlisting}
+sudo apt remove brltty
+\end{lstlisting}
+
+Weiterhin muss der Benutzer dem System die Berechtigung geben, auf serielle Schnittstellen zuzugreifen. Dies geschieht über die Zuweisung zur Benutzergruppe \textit{dialout}:
+\begin{lstlisting}
+sudo usermod -a -G dialout $USER
+\end{lstlisting}
+Nach dieser Änderung ist eine Ab- und erneute Anmeldung erforderlich, damit die neuen Gruppenrechte aktiv werden.
+
+\subsection{Entwicklungsumgebung PlatformIO}
+Die Firmware wurde in der Entwicklungsumgebung \textbf{PlatformIO} erstellt und über die serielle Schnittstelle direkt auf den ESP32 geflasht. PlatformIO bietet im Vergleich zur Arduino-IDE eine deutlich bessere Integration in ROS-Projekte, da Bibliotheken wie \textit{micro\_ros\_platformio} komfortabel über die Projektkonfiguration (\textit{platformio.ini}) eingebunden werden können.
+
+Im praktischen Einsatz zeigte sich, dass beim Flashen des Mikrocontrollers über USB der serielle Monitor zunächst geschlossen sein muss, da andernfalls der Zugriff auf den Port blockiert ist. Ebenso hilfreich war es, den automatischen Neustart (\textit{monitor\_dtr} und \textit{monitor\_rts}) in der Konfiguration vorübergehend zu deaktivieren, falls das Board während des Uploads nicht zuverlässig in den Bootloader-Modus wechselte.
+
+\subsection{Netzwerk- und Agentumgebung}
+
+Die Kommunikation zwischen Laptop und Roboter erfolgte über WLAN im \textit{Station Mode} des ESP32. Als Micro-ROS-Agent diente das lokale Ubuntu-System, auf dem die UDP-Verbindung über den Port~8888 bereitgestellt wurde. Da der Laptop selbst als WLAN-Hotspot fungierte, konnte eine stabile Punkt-zu-Punkt-Verbindung hergestellt werden, ohne die Hochschulnetzwerke zu belasten. Diese Konfiguration erwies sich als zuverlässig und reproduzierbar, insbesondere für Tests mit wiederholtem Re-Flashen und Neustarten des Controllers.
+
+Auf Seiten des ESP32 mussten die WLAN-Zugangsdaten und die Agent-IP-Adresse direkt im Programmcode angepasst werden, um die Verbindung herzustellen:
+\begin{lstlisting}
+#define WIFI_SSID     "ROS_Net"
+#define WIFI_PASSWORD "EZMR"
+#define AGENT_IP_STR  "10.42.0.1"
+#define AGENT_PORT    8888
+\end{lstlisting}
+
+Zusätzlich war in der Datei \textit{platformio.ini} sicherzustellen, dass die Micro-ROS-Bibliothek eingebunden und der richtige Transportmechanismus aktiviert ist:
+\begin{lstlisting}
+lib_deps = https://github.com/micro-ROS/micro_ros_platformio
+board_microros_distro = humble
+board_microros_transport = wifi
+\end{lstlisting}
+
+Im Code selbst erfolgte die Initialisierung des Micro-ROS-Transports anschließend über:
+\begin{lstlisting}
+set_microros_wifi_transports((char*)WIFI_SSID, (char*)WIFI_PASSWORD,
+agent_ip, AGENT_PORT);
+\end{lstlisting}
+
+Diese Parameter legten fest, dass die Kommunikation nicht über USB-Serial, sondern direkt über WLAN mittels UDP-Paketen zwischen ESP32 und Micro-ROS-Agent auf dem Laptop abgewickelt wurde. Damit war der Datenaustausch über \textit{/cmd\_vel} in Echtzeit möglich und das System blieb auch nach Neustarts oder Re-Uploads des Controllers stabil verbunden.
+
+\subsection{Erkenntnisse}
+Während der Arbeit wurde deutlich, dass die Einrichtung der Entwicklungsumgebung zwar durch die Anleitung gut beschrieben ist, in der Praxis aber häufig systemabhängige Details den Fortschritt behindern können. Insbesondere der Umgang mit USB-Geräten unter Linux erfordert systemseitige Konfiguration, da schon ein belegter Port oder ein falsch gesetztes Gruppenrecht dazu führen kann, dass der Micro-ROS-Agent keine Verbindung zum ESP32 aufbauen kann. Nach erfolgreicher Systemkonfiguration verlief die Entwicklung stabil, und PlatformIO erwies sich als zuverlässige Plattform für den kontinuierlichen Test- und Upload-Prozess.
+
+
+
+
+
+
+
+
+
+\section{Turtlesim Teleop}
+
+\subsection{Micro-ROS-Struktur und Node-Konfiguration}
+Der ESP32 agiert als \textit{Micro-ROS Node} und abonniert das Topic \textit{/cmd\_vel}, das Geschwindigkeitsbefehle vom ROS 2-System enthält. Diese werden als Nachrichten des Typs \textit{geometry\_msgs/msg/Twist} per WLAN-Hotspot, mit welchem sich der TurtleBot verbindet, übertragen und bestehen aus einer linearen und einer angularen Komponente. Auf dem Host-PC wird der Micro-Ros Agent in einem separaten Terminal gestartet.
+\begin{lstlisting}
+	ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+\end{lstlisting}
+Die Node verarbeitet die Bewegungsdaten innerhalb einer Callback-Funktion, die bei jedem neuen Nachrichtenempfang ausgelöst wird. Dadurch werden nur dann Befehle an den Roboter gesendet, wenn tatsächlich eine neue Nachricht vorliegt. So wird die Kommunikationslast auf dem UART reduziert und vermeidet unnötige Wiederholungen.
+
+\subsection{Kommunikation Motorcontroller}
+Die Steuerung der Antriebe erfolgt über zwei ATtiny-basierte Motorcontroller, die über UART (9600\,Baud, 8N1) mit dem ESP32 verbunden sind. Beide Motoren besitzen eine eigene Adresse (\textit{0x01} für links, \textit{0x02} für rechts) und werden über ein einheitliches Protokoll angesprochen:
+
+\begin{lstlisting}
+	[Startbyte] [ID] [Mode] [Dir] [Param_High] [Param_Low]
+\end{lstlisting}
+
+Das Nachrichtenformat beginnt mit einem festen Startbyte \textit{0xAA}, gefolgt von der Motor-ID und dem Betriebsmodus. \textit{Dir} legt die Drehrichtung fest, während die \textit{Param\_High} und \textit{Param\_Low} die Geschwindigkeit kodieren. Dabei wird nur das niederwertige Byte (\textit{Param\_Low}) aktiv genutzt, um Werte im Bereich von \textit{0x10} (langsam) bis \textit{0x02} (schnell) abzubilden.
+
+Der Modus \textit{Mode = 1} steht für den Dauerlauf, während \textit{Mode = 0} den Schrittmodus aktiviert. Bei einem Stoppbefehl wird \textit{Mode = 0} mit \textit{Param\_Low = 0x00} übertragen, wodurch der Motor unmittelbar anhält, ohne eine Restbewegung auszuführen.
+
+\subsection{Implementierungsdetails}
+Die Verarbeitung der \textit{/cmd\_vel} - Nachrichten erfolgt in der Callback-Funktion, die den linearen und den angularen Geschwindigkeitsanteil in Radgeschwindigkeiten umrechnet. Die Kinematik des Roboters basiert auf einem Differentialantrieb mit einem Radabstand von 0,168\,m und einem Radradius von 0,042\,m. Der folgende Zusammenhang wird verwendet:
+\begin{align*}
+	v_r &= v + \omega \cdot b \\
+	v_l &= v - \omega \cdot b
+\end{align*}
+wobei $v$ die lineare und $\omega$ die Winkelgeschwindigkeit ist, $v_r$ und $v_l$ die jeweiligen Radgeschwindigkeiten, und $b$ der halbe Spurabstand.
+
+Zusätzlich wurde eine Verstärkungslogik implementiert, um Drehbewegungen auf der Stelle zu beschleunigen. Wird erkannt, dass die lineare Geschwindigkeit nahezu null ist ($|v| < 0.05$) und eine signifikante Drehgeschwindigkeit ($|\omega| > 0.01$) anliegt, wird die Winkelgeschwindigkeit mit einem Faktor von drei multipliziert. Dadurch reagiert der Roboter beim Drehen deutlich agiler, ohne das allgemeine Fahrverhalten zu verändern.
+
+\subsection{Fehlerquellen und Besonderheiten}
+
+Während der Entwicklung traten wiederholt Probleme mit der Synchronisation zwischen ROS-Agent und ESP32 auf, insbesondere bei WLAN-Reconnects oder unvollständigen Uploads. Hier waren einfache Neustarts der Hardware und das Drücken des Enable-Tasters des ESP32 wirksam. 
+
+Besonders zu beachten ist die korrekte Verwendung der Tastatursteuerung für die \textit{turtlesim}-Simulation. 
+Wird das Standardprogramm \textit{turtle\_teleop\_key} gestartet, kommuniziert es direkt mit der \textit{turtlesim\_node}, wodurch keine Nachrichten an das Topic \textit{/turtle1/cmd\_vel} weitergeleitet werden. 
+Für die Integration mit dem eigenen Node (bzw.\ mit dem realen Roboter) muss daher folgender Befehl verwendet werden:
+
+\begin{lstlisting}
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/cmd_vel
+\end{lstlisting}
+
+Nur mit diesem Aufruf werden die Steuerbefehle als \textit{geometry\_msgs/msg/Twist}-Nachrichten auf das Topic \textit{/turtle1/cmd\_vel} publiziert und können somit korrekt vom eigenen \textit{cmd\_vel} - Subscriber empfangen und umgesetzt werden.
+
+Alternativ kann das Problem auch durch ein sogenanntes Topic Remapping gelöst werden. Dabei wird beim Start einer Node das Ziel-Topic dynamisch umbenannt. So kann die Standardsteuerung von \textit{turtlesim} weiterhin verwendet werden, während die Befehle automatisch an das gewünschte Topic weitergeleitet werden:
+\begin{lstlisting}
+ros2 run turtlesim turtle_teleop_key --ros-args -r /turtle1/cmd_vel:=/cmd_vel
+\end{lstlisting}
+
+Diese Methode ist besonders praktisch, wenn dieselbe Node sowohl in der Simulation als auch auf einem realen Roboter eingesetzt werden soll, da keine Änderungen am Quellcode notwendig sind.
+
+\subsubsection{Ergebnisse}
+
+Das System reagierte stabil und nachvollziehbar auf die von der Tastatursteuerung gesendeten Befehle. Die Integration über Micro-ROS erwies sich dabei als effizient, da nur bei tatsächlichem Empfang neuer Nachrichten UART-Kommandos an die Motorcontroller weitergeleitet wurden. Dies reduzierte die Kommunikationslast erheblich und trug zu einem gleichmäßigen Fahrverhalten bei. 
+
+Die Implementierung der zeitbasierten Logik für das Drehen auf der Stelle erwies sich als praktikabel und führte zu einer deutlich dynamischeren Reaktion des Roboters. Das gewählte Kommunikationsschema mit \textit{Mode}- und \textit{Param}-Bytes ermöglichte eine effektive Übersetzung der ROS-Twist-Nachrichten in serielle Steuerkommandos.
+
+
+
+
+
+
+
+\section{Abfahren von Polygonen}
+
+Zur Überprüfung der Funktionsfähigkeit der Implementierung wurde zunächst die \textit{turtlesim}-Simulation genutzt und anschließend das gleiche Steuerungsskript auf den realen Roboter übertragen. 
+Die entwickelte Node \textit{shape\_ESP\_Turtle.py} wird auf dem PC gestartet und publiziert periodisch Geschwindigkeitsbefehle an das Topic \textit{/cmd\_vel}, wodurch die Turtle oder der Roboter ein vorgegebenes geometrisches Muster abfährt. 
+Das Verhalten der Simulation diente dabei als Referenz für die physische Plattform.\\
+Zur reproduzierbaren Bewegung der Turtle (bzw.\ eines realen Roboters mit identischem Interface) wurde ein Python-Knoten \textit{ShapeDriver} implementiert. Der Knoten publiziert zeitbasiert Geschwindigkeitsbefehle an ein konfigurierbares \textit{/cmd\_vel} - Topic und lässt die Turtle wahlweise ein Dreieck oder ein Viereck abfahren. Das Skript ist generisch gehalten (Themenname, Kantenlänge, lineare- und Winkelgeschwindigkeit sind parametrierbar) und arbeitet vollständig timergesteuert.
+
+\subsection{Ziel und Aufbau}
+Der Knoten erbt von \textit{rclpy.node.Node} und erstellt einen Publisher
+\textit{geometry\_msgs/msg/Twist} auf dem konfigurierten Topic (Standard: \textit{/turtle1/cmd\_vel}). Ein periodischer ROS-Timer (\SI{20}{Hz}) ruft die Steuerfunktion auf und publiziert in jeder Periode entweder eine reine Vorwärtsfahrt (gerade Strecke) oder eine reine Drehung (Ecken). Die gewünschte Form wird über das Argument \textit{shape} gewählt (\textit{square} oder \textit{triangle}).
+
+\subsection{Steuerlogik}
+Die Bewegung wird als endliche Zustandsmaschine mit zwei Phasen modelliert:\vspace{-0.4cm}
+\begin{itemize}
+	\item \textbf{straight}: Vorwärtsfahrt mit Geschwindigkeit $v_{\mathrm{lin}}$ während der Dauer $t_{\mathrm{straight}}$.
+	\vspace{-0.5cm}
+	\item \textbf{turn}: Drehung auf der Stelle mit Winkelgeschwindigkeit $v_{\mathrm{ang}}$ mit Dauer $t_{\mathrm{turn}}$.
+\end{itemize}
+Die Zeiten werden aus Geometrie und Geschwindigkeiten berechnet:
+\[
+t_{\mathrm{straight}}=\frac{\text{Kantenlänge}}{v_{\mathrm{lin}}}, \qquad
+\alpha=\frac{2\pi}{N}, \qquad
+t_{\mathrm{turn}}=\frac{\alpha}{v_{\mathrm{ang}}},
+\]
+wobei $N\in\{3,4\}$ die Anzahl der Kanten (Dreieck/Viereck) ist und $\alpha$ der Außenwinkel zwischen zwei Kanten. Die Phasen wechseln, sobald die jeweilige Sollzeit durch die Timer-Takte kumulativ erreicht ist. Nach $N$ vollständigen Kanten wird explizit \textit{Twist(0,0)} gesendet, der Timer gestoppt und die Node sauber beendet.
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[
+		node distance=2.2cm,
+		auto,
+		>=Stealth,
+		every node/.style={font=\small},
+		state/.style={rectangle, rounded corners, draw=black, fill=blue!5, minimum width=2.5cm, minimum height=1cm, align=center}
+		]
+		
+		% Nodes
+		\node[state] (node) {ShapeDriver\\(rclpy.Node)};
+		\node[state, below=2cm] (timer) {ROS-Timer\\20\,Hz};
+		\node[state, below left=1.5cm and 1.0cm of timer] (straight) {Phase: \\ \textbf{straight} \\ $\dot{x}=v_{\mathrm{lin}}$};
+		\node[state, below right=1.5cm and 1.0cm of timer] (turn) {Phase: \\ \textbf{turn} \\ $\dot{\theta}=v_{\mathrm{ang}}$};
+		\node[state, below=3.8cm of timer, yshift=-0.5cm, fill=green!5] (topic) {Publisher\\\textit{/turtle1/cmd\_vel}\\(\textit{Twist})};
+		
+		% Connections
+		\draw[->] (node) -- (timer) node[midway, right]{startet Timer};
+		\draw[->] (timer) -- (straight) node[midway, left]{bei Start};
+		
+		% Übergänge zwischen Phasen mit gebogenen Pfeilen
+		\draw[->, bend left=20] (straight) to node[above]{nach $t_{\mathrm{straight}}$} (turn);
+		\draw[->, bend left=20] (turn) to node[below]{nach $t_{\mathrm{turn}}$} (straight);
+		
+		% Ausgaben an Topic
+		\draw[->] (straight) -- (topic);
+		\draw[->] (turn) -- (topic);
+		
+		% Stop-Pfeil
+		\draw[->, dashed, red] (topic.south) ++(0,-0.1) -- ++(0,-0.8)
+		node[midway, right]{\textit{Twist(0,0)} bei Ende};
+		
+	\end{tikzpicture}
+	\caption{Funktionsprinzip der zeitbasierten Steuerung des \textit{ShapeDriver}-Knotens.}
+\end{figure}
+
+\subsection{Implementierungsdetails}
+\begin{itemize}
+	\item \textbf{Zeitdiskretisierung:} Die Steuerfrequenz beträgt \SI{20}{Hz} (\textit{rate\_hz=20}), d.\,h.\ die Timer-Periode ist $\Delta t=\SI{0.05}{s}$. Eine interne Uhr zählt \textit{phase\_time} in Schritten von $\Delta t$, bis $t_{\mathrm{straight}}$ bzw.\ $t_{\mathrm{turn}}$ erreicht ist.
+	\vspace{-0.5cm}
+	\item \textbf{Robustheit der Parameter:} Die lineare und Winkelgeschwindigkeit werden als Beträge verarbeitet (Vorzeichen wird nicht benötigt, da für Drehungen immer linksherum gedreht wird). Divisionen sind durch \textit{max(v,1e-6)} gegen $v=0$ abgesichert.\vspace{-0.5cm}
+	\item \textbf{Formwahl:} \textit{shape} akzeptiert \textit{square/rectangle} ($N=4$) sowie \textit{triangle} ($N=3$). Daraus wird $\alpha=2\pi/N$ abgeleitet.
+	\vspace{-0.5cm}
+	\item \textbf{Topic-Name:} Das Ausgabefeld ist frei wählbar (\textit{--topic}), sodass derselbe Knoten sowohl die \textit{turtlesim} (\textit{/turtle1/cmd\_vel}) als auch reale Roboter (\textit{/cmd\_vel}) bedienen kann.
+	\vspace{-0.5cm}
+	\item \textbf{Sauberes Beenden:} Nach Abschluss der letzten Drehphase wird ein Stopp (\textit{linear.x=0, angular.z=0}) publiziert, der Timer gecancelt und \textit{rclpy.shutdown()} aufgerufen, um Ressourcen freizugeben.
+\end{itemize}
+
+\subsection{Aufruf und Parametrisierung}
+Der Knoten akzeptiert Kommandozeilenargumente (über \textit{argparse}):\vspace{-0.5cm}
+\begin{itemize}
+	\item \textbf{--shape} (\textit{square/viereck/triangle/dreieck}), Standard: \textit{square}
+	\vspace{-0.5cm}
+	\item \textbf{--side} Kantenlänge (Turtlesim-Einheiten), Standard: \textit{2.0}
+	\vspace{-0.5cm}
+	\item \textbf{--v\_lin} lineare Geschwindigkeit in \si{m/s}, Standard: \textit{1.0}
+	\vspace{-0.5cm}
+	\item \textbf{--v\_ang} Winkelgeschwindigkeit in \si{rad/s}, Standard: \textit{2.0}
+	\vspace{-0.5cm}
+	\item \textbf{--topic} Ausgabetopic (z.\,B.\ \textit{/turtle1/cmd\_vel} oder \textit{/cmd\_vel})
+\end{itemize}
+\noindent
+\vspace{-0.5cm}
+Typische Aufrufe:
+\begin{itemize}
+	\item Viereck, Kante 2.0, Standardgeschwindigkeiten, Turtlesim:
+	\begin{lstlisting}
+ros2 run <paketname> <executable> -- --shape square --side 2.0 
+--topic /turtle1/cmd_vel
+	\end{lstlisting}\vspace{-0.5cm}
+	\item Dreieck, etwas langsamer, realer Roboter:
+	\begin{lstlisting}
+ros2 run <paketname> <executable> -- --shape triangle --side 0.8 
+--v_lin 0.5 --v_ang 1.5 --topic /cmd_vel
+	\end{lstlisting}
+\end{itemize}\vspace{-0.5cm}
+
+
+\subsection{Beobachtungen}
+In Abbildung \ref{fig:turtletriangle} folgt die Turtle der Turtlesim der Form erwartungsgemäß. Kleine Abweichungen können durch die zeitdiskrete Approximation (Timer-Raster) und die Integration der Geschwindigkeiten entstehen. Auf realer Hardware weichen die Trajektorien erfahrungsgemäß stärker ab (u.\,a.\ durch Schlupf, Latenzen, nichtlineare Antriebskennlinien). Für reproduzierbarere Ergebnisse wäre eine schritt- oder sensorbasierte Regelung sinnvoll.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.5\linewidth]{Abbildungen/Turtledreieck.png}
+	\caption{Fahrspur der Turtlesim-Node}
+	\label{fig:turtletriangle}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\section{Sensorintegration: Bumper mit Host-seitiger Sicherheitslogik}
+\label{sec:bumper_final}
+
+\subsection{Zielsetzung}
+Ziel ist eine robuste Kollisionsreaktion, die ohne eigenständige lokale Autonomie auf dem Mikrocontroller auskommt. 
+Der ESP32 übernimmt dabei ausschließlich die Erfassung der Bumper-Zustände und deren Publikation in das ROS-Netzwerk sowie die Ausführung eingehender Fahrbefehle vom Host-PC. 
+Die \textit{Safety Node} auf dem Host-System überwacht fortlaufend die Bumper-Signale, filtert die Teleop-Kommandos und greift im Kollisionsfall aktiv ein. 
+Wird ein Bumper ausgelöst, führt die Node automatisch ein definiertes Ausweichmanöver aus: zunächst eine kurze Rückwärtsfahrt, anschließend ein gezieltes Wegdrehen, gefolgt von einem Stopp und der kontrollierten Rückgabe der Steuerung an den Agent.
+
+\subsection{Systemübersicht und Topics}
+\begin{itemize}
+	\item \textbf{Teleoperator} (Host): publiziert Rohbefehle auf \textit{/cmd\_vel\_raw}.
+	\item \textbf{Safety-Node} (Host): \vspace{-0.5cm}
+	\begin{itemize}
+		\item Subscribt \textit{/cmd\_vel\_raw} (\textit{geometry\_msgs/Twist}) und \textit{/bumper/state} (\textit{std\_msgs/UInt8}).\vspace{-0.5cm}
+		\item Publiziert \textit{/cmd\_vel} (\textit{geometry\_msgs/Twist}) an den Roboter.
+	\end{itemize}
+	\item \textbf{ESP32} (Turtle): \vspace{-0.5cm}
+	\begin{itemize}
+		\item Publiziert \textit{/bumper/state} (Bitmaske: Bit0=links, Bit1=rechts, 1=gedrückt).\vspace{-0.5cm}
+		\item Subscribt \textit{/cmd\_vel} und setzt die Fahrbefehle per UART auf die Motorcontroller um.
+	\end{itemize}
+\end{itemize}
+
+\begin{figure}[ht]     
+	\centering
+	\includegraphics[width=1\linewidth]{Abbildungen/Blockdiagramm Systemarchitektur.png} 	% nach "widh = 1" kann ein ", height=6cm" eingefügt werden um die Höhe zu verändern
+	\caption{Blockdiagramm der Systemarchitektur}
+	\label{fig:block}
+\end{figure}
+
+Zur Sicherstellung einer stabilen Kommunikation werden alle relevanten Topics mit der Quality-of-Service-Einstellung \textit{RELIABLE und KEEP\_LAST} betrieben. 
+Damit wird garantiert, dass keine Nachrichten verloren gehen und stets nur die jeweils aktuellste Nachricht im Puffer gehalten wird.  
+Der ESP32 veröffentlicht das Topic \textit{/bumper/state} bei jeder Zustandsänderung der Bumper (Abfragefrequenz \SI{200}{Hz} mit kurzer Entprellzeit).  
+Die Safety-Node auf dem Host-PC sendet während einer aktiven Übersteuerung regelmäßig Befehle mit \SI{100}{Hz}, um ein gleichmäßiges Bewegungsverhalten sicherzustellen.
+
+\subsection{Implementierung}
+\subsubsection*{ESP32 (Client)}\vspace{-0.5cm}
+\begin{itemize}
+	\item GPIOs: \textit{Bumper links} = GPIO12, \textit{Bumper rechts} = GPIO14, jeweils \textit{INPUT\_PULLUP} (active-LOW).\vspace{-0.5cm}
+	\item Publisher: \textit{/bumper/state} (\textit{std\_msgs/UInt8}, Bitmaske: \textit{0x01} links, \textit{0x02} rechts, \textit{0x03} beide).\vspace{-0.5cm}
+	\item Subscriber: \textit{/cmd\_vel} (\textit{geometry\_msgs/Twist}); Umsetzung auf UART-Frames für die Motorcontroller (unverändert).\vspace{-0.5cm}
+	\item Polling/Publish: Timer \SI{5}{\milli\second} (\SI{200}{\hertz}), Debounce $\approx$\SI{10}{\milli\second}; Publish nur bei Zustandsänderung.
+\end{itemize}
+
+\subsubsection*{Safety-Node (Host, \textit{bumper\_safety.py})}\vspace{-0.5cm}
+\begin{itemize}
+	\item Abonniert \textit{/bumper/state} und \textit{/cmd\_vel\_raw}, publiziert \textit{/cmd\_vel}.\vspace{-0.5cm}
+	\item \textbf{Ablauf beim Event:} 
+	\textit{(1)} Rückwärtsfahrt (konstantes $v_\text{back}$) für $t_\text{back}$, 
+	\textit{(2)} Drehung (konstantes $\omega_\text{turn}$) für $t_\text{turn}$; Drehrichtung gemäß Bumper:
+	links gedrückt $\rightarrow$ rechts drehen, rechts gedrückt $\rightarrow$ links drehen, beide $\rightarrow$ rechts drehen (Default).\vspace{-0.5cm}
+	\item Am Ende: \textbf{Stop} publizieren, danach \textbf{Sperrphase} $t_\text{hold}$ (Teleop wird ignoriert); optional erst Freigabe, wenn \textit{/cmd\_vel\_raw} einmal 0/0 sendet.\vspace{-0.5cm}
+	\item Taktung: \SI{100}{\hertz} während der Übersteuerung, sofortiges erstes Override-Kommando beim Event (minimale Latenz).
+\end{itemize}
+
+\subsection{Parameter der Safety-Node}
+Alle Parameter können zur Laufzeit per \textit{--ros-args -p} gesetzt werden:
+\begin{center}
+	\begin{tabular}{lll}
+		\toprule
+		\textbf{Name} & \textbf{Bedeutung} & \textbf{Default} \\
+		\midrule
+		\textit{back\_speed} & Rückwärtsgeschwindigkeit $v_\text{back}$ [m/s] & -0.25 \\
+		\textit{back\_time} & Dauer der Rückwärtsfahrt $t_\text{back}$ [s] & 2.25 \\
+		\textit{turn\_speed} & Drehgeschwindigkeit $\omega_\text{turn}$ [rad/s] & 1.2 \\
+		\textit{turn\_time} & Dauer der Drehung $t_\text{turn}$ [s] & 2.0 \\
+		\textit{hold\_time} & Sperrphase nach Manöverende [s] & 0.8 \\
+		\textit{require\_zero\_to\_resume} & Freigabe erst nach Stoppkommando (0/0) & true \\
+		\textit{raw\_cmd\_topic} & Eingangs-Topic (Teleop-Steuerung) & /cmd\_vel\_raw \\
+		\textit{out\_cmd\_topic} & Ausgangs-Topic (Robotersteuerung) & /cmd\_vel \\
+		\textit{bumper\_topic} & Eingang für Bumper-Zustände & /bumper/state \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+
+\subsection{Ergebnis}
+Mit der finalen Konfiguration reagiert der Roboter spürbar schneller auf Bumperkontakte. 
+Das Event löst unmittelbar eine Rückwärtsbewegung aus, gefolgt von einer Ausweichdrehung in entgegengesetzte Richtung. 
+Am Ende wird ein explizites Stop-Kommando gesendet, anschließend blockiert eine kurze Sperrphase neue Teleop-Befehle. 
+Optional muss die Teleop einmal ein \textit{Null}-Kommando senden, bevor die Steuerung wieder freigegeben wird. 
+Die Fahrbefehle laufen ausschließlich über die Safety-Node (Teleop $\rightarrow$ \textit{/cmd\_vel\_raw} $\rightarrow$ Safety $\rightarrow$ \textit{/cmd\_vel}).
+
+\subsection{Probleme}
+Leider konnte die Ursprüngliche Idee, die Integration des Ultraschallsensors nicht erfolgen, da durch ungeklärte Umstände, keine Informationen an den Sensor gesendet werden konnten.
+Der verwendete Ultraschallsensor war auf einer fest verlöteten Platine integriert, weshalb keine detaillierten Informationen zur internen Beschaltung vorlagen. 
+Insbesondere die exakte Signalführung des \textit{ECHO}-Pins konnte nicht überprüft werden, da kein Zugriff auf die Platinenrückseite bestand. 
+Dadurch war es nicht möglich, das Pegelverhalten des Sensors direkt zu verifizieren oder gegebenenfalls mit einem Spannungsteiler anzupassen. 
+In Folge dessen konnte mit dem Testskript kein gültiges Echo-Signal detektiert werden, obwohl die Ansteuerung über den \textit{TRIG}-Pin funktionierte.
