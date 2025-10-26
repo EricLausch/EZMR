@@ -25,10 +25,10 @@ void send(int server_qid){
 
     if (strncmp(cmsg.mesg_text, "SEND",4) == 0){
 
-        int id = 0;
+        char target [32];
         char msg[100];
-        if (sscanf(cmsg.mesg_text, "SEND %d %[^\n]", &id, msg) == 2){
-            cmsg.target_qid = id;
+        if (sscanf(cmsg.mesg_text, "SEND %31s %[^\n]", target, msg) == 2){
+            strncpy(cmsg.username, target, sizeof(cmsg.username) - 1);
             strncpy(cmsg.mesg_text, msg, sizeof(cmsg.mesg_text) - 1);
         }
     }

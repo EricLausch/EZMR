@@ -47,6 +47,14 @@ void send(const char *text, int client_qid)
     msgsnd(client_qid, &smsg, sizeof(smsg.mesg_text), 0);
 }
 
+int find_qid_by_name(const char *name) {
+    for (int i = 0; i < client_cnt; i++) {
+        if (strcmp(cl[i].username, name) == 0)
+            return cl[i].qid;
+    }
+    return -1;
+}
+
 int main()
 {
     int server_id = msgget(SERVER_KEY, PERM | IPC_CREAT);
@@ -64,7 +72,7 @@ int main()
         printf("Data Received (%d): %s", cmsg.client_qid, cmsg.mesg_text);
 
         // add a new Client to the client list and
-        if (strncmp(cmsg.mesg_text, "CONNCECT", 8) == 0)
+        if (strncmp(cmsg.mesg_text, "CONNECT", 7) == 0)
         {
             sscanf(cmsg.mesg_text, "CONNECT %s", cl[client_cnt].username);
             cl[client_cnt].qid = cmsg.client_qid;
@@ -73,12 +81,14 @@ int main()
             send("Hello Client!", cmsg.client_qid);
         }
 
-        if (cmsg.target_qid != 0)
-        {
-            send(cmsg.mesg_text, cmsg.target_qid);
+        else if (strncmp(cmsg.mesg_text, "SEND", 4) == 0){
+            int target;
+            target = find_qid_by_name(cmsg.username);
+            printf("%d", target);
+            send(cmsg.mesg_text, target);
         }
 
-        if (strncmp(cmsg.mesg_text, "PING", 4) == 0)
+        else if (strncmp(cmsg.mesg_text, "PING", 4) == 0)
         {
             server_log(msg_log, "PONG", &log_count);
             send("PONG\n", cmsg.client_qid);
