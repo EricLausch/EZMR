@@ -1,0 +1,95 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{2025:omron}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=0016e731842edfca188d15c7c71fde1d}{%
+           family={OMRON},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{0016e731842edfca188d15c7c71fde1d}
+      \strng{fullhash}{0016e731842edfca188d15c7c71fde1d}
+      \strng{fullhashraw}{0016e731842edfca188d15c7c71fde1d}
+      \strng{bibnamehash}{0016e731842edfca188d15c7c71fde1d}
+      \strng{authorbibnamehash}{0016e731842edfca188d15c7c71fde1d}
+      \strng{authornamehash}{0016e731842edfca188d15c7c71fde1d}
+      \strng{authorfullhash}{0016e731842edfca188d15c7c71fde1d}
+      \strng{authorfullhashraw}{0016e731842edfca188d15c7c71fde1d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{\url{https://industrial.omron.de/de/products/autonomous-mobile-robot} aufgerufen am 15.10.2025 12:35 Uhr}
+      \field{title}{Autonome mobile Roboter}
+    \endentry
+    \entry{2009:rhein}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=0e8cea2e0860cfd8592dc20d15c6e948}{%
+           family={Jürgen\bibnamedelima Wolf},
+           familyi={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+           given={Rene\bibnamedelima Krooß},
+           giveni={R\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Rheinwerk}%
+      }
+      \strng{namehash}{0e8cea2e0860cfd8592dc20d15c6e948}
+      \strng{fullhash}{0e8cea2e0860cfd8592dc20d15c6e948}
+      \strng{fullhashraw}{0e8cea2e0860cfd8592dc20d15c6e948}
+      \strng{bibnamehash}{0e8cea2e0860cfd8592dc20d15c6e948}
+      \strng{authorbibnamehash}{0e8cea2e0860cfd8592dc20d15c6e948}
+      \strng{authornamehash}{0e8cea2e0860cfd8592dc20d15c6e948}
+      \strng{authorfullhash}{0e8cea2e0860cfd8592dc20d15c6e948}
+      \strng{authorfullhashraw}{0e8cea2e0860cfd8592dc20d15c6e948}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{C von A bis Z}
+      \field{year}{2009}
+    \endentry
+    \entry{2025:praktikumsanleitung}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=694bf1f932b77d6d176b8f0982dd126f}{%
+           family={Beyer},
+           familyi={B\bibinitperiod},
+           given={Nico},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{694bf1f932b77d6d176b8f0982dd126f}
+      \strng{fullhash}{694bf1f932b77d6d176b8f0982dd126f}
+      \strng{fullhashraw}{694bf1f932b77d6d176b8f0982dd126f}
+      \strng{bibnamehash}{694bf1f932b77d6d176b8f0982dd126f}
+      \strng{authorbibnamehash}{694bf1f932b77d6d176b8f0982dd126f}
+      \strng{authornamehash}{694bf1f932b77d6d176b8f0982dd126f}
+      \strng{authorfullhash}{694bf1f932b77d6d176b8f0982dd126f}
+      \strng{authorfullhashraw}{694bf1f932b77d6d176b8f0982dd126f}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Praktikum Echtzeitsysteme -- Laborunterlagen}
+      \field{year}{gespeichert am 22.08.2025}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
