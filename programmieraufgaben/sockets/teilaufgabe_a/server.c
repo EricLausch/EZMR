@@ -13,7 +13,7 @@ void chat(int);
 int main (void){
 
     struct sockaddr_in server, client;
-    int new_sock, pid;
+    int new_sock;
     socklen_t len;
 
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);

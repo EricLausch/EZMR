@@ -3,20 +3,45 @@
 \vspace{-15 pt}
 \section{Sockets}
 \vspace{-15 pt}
-Ein Socket ist eine Softwarestruktur, die zur Netzwerkkommunikation verwendet wird. Darüber hinaus werden Sockets auch zur Interprozesskommunikation eingesetzt. Darauf wird in der zweiten Aufgabe detaillierter eingegangen. Sockets sind bidirektional und der jeweilige Endpunkt des Kommunikationskanals. Über diesen Kanal können Anfragen gesendet und auch die entsprechenden Antworten empfangen werden. Client und Server besitzen einen eigenen Socket, dieser besteht aus Ziel- bzw. Quell-IP-Adresse, Ziel- bzw. Quellport sowie dem zu verwendenden Protokoll\cite{2009:rhein}.
+Ein Socket ist eine Softwarestruktur, die zur Netzwerkkommunikation verwendet wird. Darüber hinaus werden Sockets auch zur Interprozesskommunikation eingesetzt. Darauf wird in der zweiten Aufgabe detaillierter eingegangen. Sockets sind bidirektional und der jeweilige Endpunkt des Kommunikationskanals. Über diesen Kanal können Anfragen gesendet und auch die entsprechenden Antworten empfangen werden. Client und Server besitzen einen eigenen Socket, dieser besteht aus Ziel- bzw. Quell-IP-Adresse, Ziel- bzw. Quellport sowie dem zu verwendenden Protokoll \cite{2009:rhein}.
+\vspace{-15 pt}
 \subsection{Teilaufgabe A}
 \vspace{-15 pt}
+In Teilaufgabe A wird die Grundstruktur für eine Socketkommunkation aufgebaut. Empfängt der gestartete Server ein PING Kommando antwortet dieser mit einem PONG.\\
+Der erstellte Quellcode unter der eigenen IP-Adresse (localhost) einen Socket zu erstellen. Dazu wird weiterhin ein Port benötigt, der über ein define vorgegeben wird. In diesem Beispiel wird der Port 12345 genutzt. Nach der Socketerstellung wartet der Server auf eine eingehende Verbindung. Anschließend wird die Chat-Funktion aufgerufen, die auf eine eingehende Nachricht wartet, diese in einem Buffer speichert, auswertet in der Kommandozeile ausgibt.\\
+Getestet werden kann dieser einfache Server mit netcat:
+\begin{lstlisting}
+nc 192.168.178.123
+\end{lstlisting}
+\vspace{-15 pt}
+Sendet man ein PING an den Server wird im Terminal PONG angezeigt. Alle anderen Nachrichten werden im Server angezeigt, senden aber keine Antwort an den Client.
 \subsection{Teilaufgabe B}
+\vspace{-15 pt}
+Im zweiten Aufgabenteil wird eine eigene Client Anwendung entwickelt. Außerdem wird der Server erweitert, sodass er mehrere Clienten verwalten kann. Über Fork wird jede Clientverbindung in einen neuen Kindprozess ausgelagert. Dort wird dann die Chatfunktion wie in Aufgabenteil A ausgeführt. Der Hauptprozess kann dann weiterhin neue Verbindungen akzeptieren, da er nicht mehr mit der Bearbeitung der Chatfunktion beschäftigt ist.
+
+Die Clientanwendung nutzt die gleichen C-Bibliotheken wie der Server. Es wird ein eigener Socket erstellt und anschließend eine Verbindung zum Server aufgebaut. Über defines ist dessen IP und der Port festgelegt. Bei mehreren Servern ist es sinnvoll den Code um eine Nutzereingabe zu ergänzen, die IP und PORT abfragt, wie es auch bei netcat umgesetzt ist.\\
+Nach einer erfolgreichen Verbindung zum Server wartet das Clientprogramm auf eine Nutzereingabe und sendet diese an den Server. Gibt der Nutzer QUIT ein, wird die Verbindung geschlossen. Alle eventuellen Antworten vom Server werden auf der Kommandozeile ausgegeben. Die erstellte Clientanwendung kann mehrmals gestartet werden. Alle gestarteten Instanzen können Nachrichten an den Server senden und erhalten bei einem PING Kommando auch ein PONG.
 \vspace{-15 pt}
 \subsection{Teilaufgabe C}
 \vspace{-15 pt}
+Für die Implementierung der editierbaren Listenfunktion muss nur der Server angepasst werden. Der Nutzer muss dann nur die neuen Befehle kennen, die er im Clientprogramm eingeben muss. Im Server wird ein Log eingeführt, dass alle ein und ausgehenden Nachrichten mit einem Zeitstempel abspeichert. Der Client kann dann das Log vom Server anfordern und den Text von einzelnen Einträgen verändern. Geänderte Einträge werden im Log markiert.\\
+Die Behandlung des Log wird in einer eigenen Funktion umgesetzt und die bisherige Chat Funktion wird zur comm Funktion. Das Log besteht aus einem Array in dem insgesamt 100 Nachrichten gespeichert werden können. Die Log Funktion wird bei Empfang einer neuen Nachricht bzw. beim versenden einer Antwort aufgerufen. Der Nutzer kann über GETLOG die Liste anfordern, EDITLOG <id> <text> bearbeitet den angegebenen Eintrag.\\
+Dadurch das für die Übertragung des Logs mehrere Nachrichten vom Server nacheinander gesendet werden müssen, muss das Verfahren im Client geändert werden. Bisher erfolgt immer ein Wechsel zwischen senden und empfangen. Der Empfang wird um ein Timeout erweitert. Trifft 200 ms keine Nachricht mehr beim Client ein, wird zur Eingabe übergegangen. Dies funktioniert im lokalen Netzwerk ohne Probleme. Sollen die Anwendungen über größere Entfernungen kommunizieren muss der Timeout erhöht oder ein anderes Konzept verwendet werden.
+\vspace{-15 pt}
 \subsection{Teilaufgabe D}
 \vspace{-15 pt}
+In der Teilaufgabe D wird die Server-Client Architektur in eine Peer-to-Peer Kommunikation umgewandelt. Für die Sockets wird weiterhin ein Verwalter benötigt. Der erste Aufruf der Anwendung startet den Serversocket. Im gleichen Terminal kann dann noch eine Clientverbindung aufgebaut werden, die die bekannten Befehle ausführen kann. Jeder weitere Aufruf gibt gibt den Hinweis zurück, dass der Serversocket nicht erstellt werden konnte, da dieser schon belegt ist. Danach kann die Verbindung zum anderen Partner aufgebaut werden. Mit einem CONNECT <ip> kann die Verbindung hergestellt werden. Alternativ kann mit EXIT die Anwendung beendet werden.
 
+Mit Threads werden die einzelnen zu erledigenden Aufgaben parallel ausgeführt. Der Serverthread wird nur vom ersten Aufruf gestartet, dort wird auch die bereits vorhanden comm Funktion aufgerufen. Alle weiteren Instanzen starten den Inputthread, der die Verbindungen zum Server aufbaut. Der Thread ruft dann eine Clientfunktion auf, die das bisherige separate Programm ersetzt.
+\vspace{-15 pt}
 \section{Interprozesskommunikation}
+\vspace{-15 pt}
+Für die IPC können mehrere Varianten gewählt werden. Für die Bearbeitung der nachfolgenden Aufgaben wurden Message Queues verwendet.\\
+Message Queues verwalten Nachrichten wie verkettetet Listen. Die Listen verfügen über eine Kennung durch die sie durch Prozesse identifiziert werden können. Von einem Prozess gesendete Nachrichten werden gespeichert und können vom Partnerprozess abgerufen werden. Der Prozess kann seinerseits auch Nachrichten in der Queue ablegen. Standardmäßig arbeiten die Queues nach dem FIFO-Prinzip. Es gibt jedoch die Möglichkeit Nachrichten zu priorisieren, indem man ihnen einen eigenen Nachrichtentyp zuweist. Der Prozess sucht dann in der Liste nach der ersten Nachricht dieses Typs auch wenn sie ganz am Ende der Queue stehen sollte \citep{2009:rhein}.
 \vspace{-15 pt}
 \subsection{Teilaufgabe A}
 \vspace{-15 pt}
+Diese Teilaufgabe erstellt wieder die Grundstruktur für die Kommunikation. Für den Test der main-Anwendung 
 \subsection{Teilaufgabe B}
 \vspace{-15 pt}
 \subsection{Teilaufgabe C}

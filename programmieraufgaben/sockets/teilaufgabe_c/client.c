@@ -43,7 +43,7 @@ int main (void){
     printf("available commands:\n");
     printf("PING: send ping to server\n");
     printf("GETLOG: request log from server\n");
-    printf("EDITLOG x newtext: edit specified entrytext\n");
+    printf("EDITLOG <id> <newtext>: edit specified entrytext\n");
     printf("QUIT: disconnect from server\n");
     printf("---------------------\n");
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.10.21)  27 OCT 2025 10:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.10.21)  7 NOV 2025 18:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1639,11 +1639,31 @@ chapter 1.
 
 ]
 chapter 2.
-) (./Kapitel/vroboter.tex
+
+Overfull \hbox (11.46584pt too wide) in paragraph at lines 10--13
+\OT1/cmr/m/n/12 In Tei-lauf-ga-be A wird die Grund-struk-tur f[]ur ei-ne Socket
+-kom-mun-ka-ti-on auf-ge-baut. Empf[]angt
+ []
+
+
 
 [6
 
 ]
+
+[7]
+! Undefined control sequence.
+l.40 ...anz am Ende der Queue stehen sollte \citep
+                                                  {2009:rhein}.
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+) (./Kapitel/vroboter.tex
+
+[8]
 chapter 3.
 
 Overfull \hbox (17.87593pt too wide) in paragraph at lines 10--12
@@ -1653,11 +1673,11 @@ sp[]ater auf rea-le Hard-wa-re []ubertragen,
 
 
 
-[7
+[9
 
 ]
 
-[8{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+[10{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Overfull \hbox (3.36975pt too wide) in paragraph at lines 74--75
 \OT1/cmr/m/n/12 Build-Systems \OT1/cmr/m/it/12 col-con \OT1/cmr/m/n/12 ei-ne ei
 n-heit-li-che und re-pro-du-zier-ba-re Build-Struktur si-cher-ge-stellt. 
@@ -1665,7 +1685,7 @@ n-heit-li-che und re-pro-du-zier-ba-re Build-Struktur si-cher-ge-stellt.
 
 
 
-[9]
+[11]
 Overfull \hbox (72.82547pt too wide) in paragraph at lines 99--101
 \OT1/cmr/m/it/12 turt-le-sim[]node \OT1/cmr/m/n/12 abon-niert wird. Die-ses Zu-
 sam-men-spiel bil-det das klas-si-sche ROS-Kommunikationsschema
@@ -1679,21 +1699,21 @@ Overfull \hbox (13.16618pt too wide) in paragraph at lines 124--126
 
 
 
-[10]
+[12]
 
-[11]
+[13]
 chapter 4.
 
 
-[12
+[14
 
 ]
 
-[13]
-
-[14]
-
 [15]
+
+[16]
+
+[17]
 Overfull \hbox (6.39322pt too wide) in paragraph at lines 245--246
 []\OT1/cmr/m/n/12 Nur mit die-sem Auf-ruf wer-den die Steu-er-be-feh-le als \OT
 1/cmr/m/it/12 geo-me-try[]msgs/msg/Twist\OT1/cmr/m/n/12 -Nachrichten
@@ -1701,7 +1721,7 @@ Overfull \hbox (6.39322pt too wide) in paragraph at lines 245--246
 
 
 
-[16]
+[18]
 Overfull \hbox (10.67812pt too wide) in paragraph at lines 274--276
 \OT1/cmr/m/n/12 Der Kno-ten erbt von \OT1/cmr/m/it/12 rcl-py.node.Node \OT1/cmr
 /m/n/12 und er-stellt einen Pu-blis-her \OT1/cmr/m/it/12 geo-me-try[]msgs/msg/T
@@ -1710,7 +1730,7 @@ wist
 
 
 
-[17]
+[19]
 Overfull \hbox (9.12242pt too wide) in paragraph at lines 331--333
 []\OT1/cmr/bx/n/12 Zeitdiskretisierung: \OT1/cmr/m/n/12 Die Steu-er-fre-quenz b
 e-tr[]agt $20$$[]$ (\OT1/cmr/m/it/12 ra-te[]hz=20\OT1/cmr/m/n/12 ), d.h. die Ti
@@ -1719,10 +1739,10 @@ mer-
 
 
 
-[18]
+[20]
 
-[19]
-<Abbildungen/Turtledreieck.png, id=297, 520.94624pt x 558.085pt>
+[21]
+<Abbildungen/Turtledreieck.png, id=309, 520.94624pt x 558.085pt>
 File: Abbildungen/Turtledreieck.png Graphic file (type png)
 <use Abbildungen/Turtledreieck.png>
 Package pdftex.def Info: Abbildungen/Turtledreieck.png  used on input line 376.
@@ -1730,7 +1750,7 @@ Package pdftex.def Info: Abbildungen/Turtledreieck.png  used on input line 376.
 (pdftex.def)             Requested size: 227.62209pt x 243.84651pt.
 
 
-[20 <./Abbildungen/Turtledreieck.png>]
+[22 <./Abbildungen/Turtledreieck.png>]
 Overfull \hbox (36.67204pt too wide) in paragraph at lines 405--406
 []\OT1/cmr/m/n/12 Subscribt \OT1/cmr/m/it/12 /cmd[]vel[]raw \OT1/cmr/m/n/12 (\O
 T1/cmr/m/it/12 geo-me-try[]msgs/Twist\OT1/cmr/m/n/12 ) und \OT1/cmr/m/it/12 /bu
@@ -1738,7 +1758,7 @@ m-per/-state \OT1/cmr/m/n/12 (\OT1/cmr/m/it/12 std[]msgs/UInt8\OT1/cmr/m/n/12 )
 . 
  []
 
-<Abbildungen/Blockdiagramm Systemarchitektur.png, id=310, 2393.94376pt x 1180.4
+<Abbildungen/Blockdiagramm Systemarchitektur.png, id=322, 2393.94376pt x 1180.4
 1pt>
 File: Abbildungen/Blockdiagramm Systemarchitektur.png Graphic file (type png)
 <use Abbildungen/Blockdiagramm Systemarchitektur.png>
@@ -1754,7 +1774,7 @@ m/it/12 IN-PUT[]PULLUP
 
 
 
-[21]
+[23]
 Overfull \hbox (40.79184pt too wide) in paragraph at lines 433--434
 []\OT1/cmr/m/n/12 Polling/Publish: Ti-mer $5$$[]$ ($200$$[]$), De-boun-ce $\OMS
 /cmsy/m/n/12 ^^Y$$\OT1/cmr/m/n/12 10$$[]$; Pu-blish nur bei Zu-stands[]anderung
@@ -1767,16 +1787,16 @@ LaTeX Font Warning: Font shape `OT1/cmss/bx/it' undefined
 
 
 
-[22 <./Abbildungen/Blockdiagramm Systemarchitektur.png>])
+[24 <./Abbildungen/Blockdiagramm Systemarchitektur.png>])
 (./Kapitel/proboter.tex
 
-[23]
+[25]
 
-[24]
+[26]
 chapter 5.
 )
 
-[25
+[27
 
 ]
 chapter without number
@@ -1793,7 +1813,7 @@ Overfull \hbox (9.40135pt too wide) in paragraph at lines 44--44
 
 
 
-[26
+[28
 
 ]
 chapter without number
@@ -1810,7 +1830,7 @@ This document will not have a glossary.
 
 
 
-[27
+[29
 
 
 
@@ -1837,17 +1857,14 @@ LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-Package biblatex Warning: Please rerun LaTeX.
-
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 50395 strings out of 473197
- 1053322 string characters out of 5718604
- 2048811 words of memory out of 5000000
+ 50399 strings out of 473197
+ 1053368 string characters out of 5718604
+ 2049916 words of memory out of 5000000
  72777 multiletter control sequences out of 15000+600000
  571866 words of font info for 86 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
@@ -1873,10 +1890,10 @@ e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/font
 s/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-su
 per/sftt1200.pfb>
-Output written on main.pdf (28 pages, 416794 bytes).
+Output written on main.pdf (30 pages, 424705 bytes).
 PDF statistics:
- 611 PDF objects out of 1000 (max. 8388607)
- 534 compressed objects within 6 object streams
- 165 named destinations out of 1000 (max. 500000)
+ 623 PDF objects out of 1000 (max. 8388607)
+ 544 compressed objects within 6 object streams
+ 169 named destinations out of 1000 (max. 500000)
  428 words of extra memory for PDF output out of 10000 (max. 10000000)
 
