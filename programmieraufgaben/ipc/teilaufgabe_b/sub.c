@@ -27,7 +27,7 @@ int main()
         message.mesg_type = 1;
         msgsnd(msgid, &message, sizeof(message), 0);
 
-        // receive answer of msg_type 2
+        // receive answer of msg_type 1
         msgrcv(msgid, &message, sizeof(message), 1, 0);
         printf("answer from MAIN: %s", message.mesg_text);
         if (strncmp(message.mesg_text, "BYE", 3) == 0) break;

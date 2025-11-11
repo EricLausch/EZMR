@@ -31,105 +31,103 @@
 \@writefile{atoc}{\contentsline {subsection}{\numberline {2.1.3}Teilaufgabe C}{7}{subsection.2.1.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.4}Teilaufgabe D}{7}{subsection.2.1.4}\protected@file@percent }
 \@writefile{atoc}{\contentsline {subsection}{\numberline {2.1.4}Teilaufgabe D}{7}{subsection.2.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Interprozesskommunikation}{8}{section.2.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {section}{\numberline {2.2}Interprozesskommunikation}{8}{section.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Teilaufgabe A}{8}{subsection.2.2.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {2.2.1}Teilaufgabe A}{8}{subsection.2.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Teilaufgabe B}{8}{subsection.2.2.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {2.2.2}Teilaufgabe B}{8}{subsection.2.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Teilaufgabe C}{8}{subsection.2.2.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {2.2.3}Teilaufgabe C}{8}{subsection.2.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.4}Teilaufgabe D}{8}{subsection.2.2.4}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {2.2.4}Teilaufgabe D}{8}{subsection.2.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{9}{chapter.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{9}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Interprozesskommunikation}{9}{section.2.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {section}{\numberline {2.2}Interprozesskommunikation}{9}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Teilaufgabe A und B}{9}{subsection.2.2.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {2.2.1}Teilaufgabe A und B}{9}{subsection.2.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Teilaufgabe C}{9}{subsection.2.2.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {2.2.2}Teilaufgabe C}{9}{subsection.2.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Teilaufgabe D}{9}{subsection.2.2.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {2.2.3}Teilaufgabe D}{9}{subsection.2.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{10}{chapter.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{10}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Einrichtung der Arbeitsumgebung und ROS~2-Paket}{9}{section.3.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {section}{\numberline {3.1}Einrichtung der Arbeitsumgebung und ROS~2-Paket}{9}{section.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Installation von ROS~2 Humble}{9}{subsection.3.1.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {3.1.1}Installation von ROS~2 Humble}{9}{subsection.3.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Erstellung eines ROS~2-Workspaces}{10}{subsection.3.1.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {3.1.2}Erstellung eines ROS~2-Workspaces}{10}{subsection.3.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Ergebnisse}{10}{subsection.3.1.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {3.1.3}Ergebnisse}{10}{subsection.3.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Erstinbetriebnahme}{11}{section.3.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {section}{\numberline {3.2}Erstinbetriebnahme}{11}{section.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Grundprinzip von Nodes und Topics}{11}{subsection.3.2.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {3.2.1}Grundprinzip von Nodes und Topics}{11}{subsection.3.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Start der Turtlesim-Umgebung}{11}{subsection.3.2.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {3.2.2}Start der Turtlesim-Umgebung}{11}{subsection.3.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Untersuchung der ROS-Kommunikation}{12}{subsection.3.2.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {3.2.3}Untersuchung der ROS-Kommunikation}{12}{subsection.3.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}TurtleBot mit ESP32}{14}{chapter.4}\protected@file@percent }
-\@writefile{atoc}{\contentsline {chapter}{\numberline {4}TurtleBot mit ESP32}{14}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Einrichtung der Arbeitsumgebung und ROS~2-Paket}{10}{section.3.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {section}{\numberline {3.1}Einrichtung der Arbeitsumgebung und ROS~2-Paket}{10}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Installation von ROS~2 Humble}{10}{subsection.3.1.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {3.1.1}Installation von ROS~2 Humble}{10}{subsection.3.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Erstellung eines ROS~2-Workspaces}{11}{subsection.3.1.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {3.1.2}Erstellung eines ROS~2-Workspaces}{11}{subsection.3.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Ergebnisse}{11}{subsection.3.1.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {3.1.3}Ergebnisse}{11}{subsection.3.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Erstinbetriebnahme}{12}{section.3.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {section}{\numberline {3.2}Erstinbetriebnahme}{12}{section.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Grundprinzip von Nodes und Topics}{12}{subsection.3.2.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {3.2.1}Grundprinzip von Nodes und Topics}{12}{subsection.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Start der Turtlesim-Umgebung}{12}{subsection.3.2.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {3.2.2}Start der Turtlesim-Umgebung}{12}{subsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Untersuchung der ROS-Kommunikation}{13}{subsection.3.2.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {3.2.3}Untersuchung der ROS-Kommunikation}{13}{subsection.3.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}TurtleBot mit ESP32}{15}{chapter.4}\protected@file@percent }
+\@writefile{atoc}{\contentsline {chapter}{\numberline {4}TurtleBot mit ESP32}{15}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Arbeitsumgebung}{14}{section.4.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {section}{\numberline {4.1}Arbeitsumgebung}{14}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Betriebssystem und Systemkonfiguration}{14}{subsection.4.1.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.1.1}Betriebssystem und Systemkonfiguration}{14}{subsection.4.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Entwicklungsumgebung PlatformIO}{15}{subsection.4.1.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.1.2}Entwicklungsumgebung PlatformIO}{15}{subsection.4.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Netzwerk- und Agentumgebung}{15}{subsection.4.1.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.1.3}Netzwerk- und Agentumgebung}{15}{subsection.4.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Erkenntnisse}{16}{subsection.4.1.4}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.1.4}Erkenntnisse}{16}{subsection.4.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Turtlesim Teleop}{16}{section.4.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {section}{\numberline {4.2}Turtlesim Teleop}{16}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Micro-ROS-Struktur und Node-Konfiguration}{16}{subsection.4.2.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.2.1}Micro-ROS-Struktur und Node-Konfiguration}{16}{subsection.4.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Kommunikation Motorcontroller}{17}{subsection.4.2.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.2.2}Kommunikation Motorcontroller}{17}{subsection.4.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Implementierungsdetails}{17}{subsection.4.2.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.2.3}Implementierungsdetails}{17}{subsection.4.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Fehlerquellen und Besonderheiten}{18}{subsection.4.2.4}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.2.4}Fehlerquellen und Besonderheiten}{18}{subsection.4.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Ergebnisse}{19}{subsubsection*.5}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsubsection}{\nonumberline Ergebnisse}{19}{subsubsection*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Abfahren von Polygonen}{19}{section.4.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {section}{\numberline {4.3}Abfahren von Polygonen}{19}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Ziel und Aufbau}{20}{subsection.4.3.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.1}Ziel und Aufbau}{20}{subsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Steuerlogik}{20}{subsection.4.3.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.2}Steuerlogik}{20}{subsection.4.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Implementierungsdetails}{20}{subsection.4.3.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.3}Implementierungsdetails}{20}{subsection.4.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Funktionsprinzip der zeitbasierten Steuerung des \textit {ShapeDriver}-Knotens.}}{21}{figure.caption.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Aufruf und Parametrisierung}{21}{subsection.4.3.4}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.4}Aufruf und Parametrisierung}{21}{subsection.4.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.5}Beobachtungen}{22}{subsection.4.3.5}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.5}Beobachtungen}{22}{subsection.4.3.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Fahrspur der Turtlesim-Node}}{22}{figure.caption.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Sensorintegration: Bumper mit Host-seitiger Sicherheitslogik}{23}{section.4.4}\protected@file@percent }
-\@writefile{atoc}{\contentsline {section}{\numberline {4.4}Sensorintegration: Bumper mit Host-seitiger Sicherheitslogik}{23}{section.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Zielsetzung}{23}{subsection.4.4.1}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.1}Zielsetzung}{23}{subsection.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Systemübersicht und Topics}{23}{subsection.4.4.2}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.2}Systemübersicht und Topics}{23}{subsection.4.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Blockdiagramm der Systemarchitektur}}{24}{figure.caption.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Implementierung}{24}{subsection.4.4.3}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.3}Implementierung}{24}{subsection.4.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}Parameter der Safety-Node}{25}{subsection.4.4.4}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.4}Parameter der Safety-Node}{25}{subsection.4.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}Ergebnis}{25}{subsection.4.4.5}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.5}Ergebnis}{25}{subsection.4.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.6}Probleme}{25}{subsection.4.4.6}\protected@file@percent }
-\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.6}Probleme}{25}{subsection.4.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Steuerung eines professionellen Roboters mit ROS2}{27}{chapter.5}\protected@file@percent }
-\@writefile{atoc}{\contentsline {chapter}{\numberline {5}Steuerung eines professionellen Roboters mit ROS2}{27}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Arbeitsumgebung}{15}{section.4.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {section}{\numberline {4.1}Arbeitsumgebung}{15}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Betriebssystem und Systemkonfiguration}{15}{subsection.4.1.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.1.1}Betriebssystem und Systemkonfiguration}{15}{subsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Entwicklungsumgebung PlatformIO}{16}{subsection.4.1.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.1.2}Entwicklungsumgebung PlatformIO}{16}{subsection.4.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Netzwerk- und Agentumgebung}{16}{subsection.4.1.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.1.3}Netzwerk- und Agentumgebung}{16}{subsection.4.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Erkenntnisse}{17}{subsection.4.1.4}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.1.4}Erkenntnisse}{17}{subsection.4.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Turtlesim Teleop}{17}{section.4.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {section}{\numberline {4.2}Turtlesim Teleop}{17}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Micro-ROS-Struktur und Node-Konfiguration}{17}{subsection.4.2.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.2.1}Micro-ROS-Struktur und Node-Konfiguration}{17}{subsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Kommunikation Motorcontroller}{18}{subsection.4.2.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.2.2}Kommunikation Motorcontroller}{18}{subsection.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Implementierungsdetails}{18}{subsection.4.2.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.2.3}Implementierungsdetails}{18}{subsection.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Fehlerquellen und Besonderheiten}{19}{subsection.4.2.4}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.2.4}Fehlerquellen und Besonderheiten}{19}{subsection.4.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Ergebnisse}{20}{subsubsection*.5}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsubsection}{\nonumberline Ergebnisse}{20}{subsubsection*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Abfahren von Polygonen}{20}{section.4.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {section}{\numberline {4.3}Abfahren von Polygonen}{20}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Ziel und Aufbau}{21}{subsection.4.3.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.1}Ziel und Aufbau}{21}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Steuerlogik}{21}{subsection.4.3.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.2}Steuerlogik}{21}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Implementierungsdetails}{21}{subsection.4.3.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.3}Implementierungsdetails}{21}{subsection.4.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Funktionsprinzip der zeitbasierten Steuerung des \textit {ShapeDriver}-Knotens.}}{22}{figure.caption.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Aufruf und Parametrisierung}{22}{subsection.4.3.4}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.4}Aufruf und Parametrisierung}{22}{subsection.4.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.5}Beobachtungen}{23}{subsection.4.3.5}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.3.5}Beobachtungen}{23}{subsection.4.3.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Fahrspur der Turtlesim-Node}}{23}{figure.caption.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Sensorintegration: Bumper mit Host-seitiger Sicherheitslogik}{24}{section.4.4}\protected@file@percent }
+\@writefile{atoc}{\contentsline {section}{\numberline {4.4}Sensorintegration: Bumper mit Host-seitiger Sicherheitslogik}{24}{section.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Zielsetzung}{24}{subsection.4.4.1}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.1}Zielsetzung}{24}{subsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Systemübersicht und Topics}{24}{subsection.4.4.2}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.2}Systemübersicht und Topics}{24}{subsection.4.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Blockdiagramm der Systemarchitektur}}{25}{figure.caption.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Implementierung}{25}{subsection.4.4.3}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.3}Implementierung}{25}{subsection.4.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}Parameter der Safety-Node}{26}{subsection.4.4.4}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.4}Parameter der Safety-Node}{26}{subsection.4.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}Ergebnis}{26}{subsection.4.4.5}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.5}Ergebnis}{26}{subsection.4.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.6}Probleme}{26}{subsection.4.4.6}\protected@file@percent }
+\@writefile{atoc}{\contentsline {subsection}{\numberline {4.4.6}Probleme}{26}{subsection.4.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Steuerung eines professionellen Roboters mit ROS2}{28}{chapter.5}\protected@file@percent }
+\@writefile{atoc}{\contentsline {chapter}{\numberline {5}Steuerung eines professionellen Roboters mit ROS2}{28}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\nonumberline Literatur}{28}{chapter*.11}\protected@file@percent }
-\@writefile{atoc}{\contentsline {chapter}{\nonumberline Literatur}{28}{chapter*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\nonumberline Literatur}{29}{chapter*.11}\protected@file@percent }
+\@writefile{atoc}{\contentsline {chapter}{\nonumberline Literatur}{29}{chapter*.11}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\nonumberline Anhang}{29}{chapter*.12}\protected@file@percent }
-\@writefile{atoc}{\contentsline {chapter}{\nonumberline Anhang}{29}{chapter*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\nonumberline Anhang}{30}{chapter*.12}\protected@file@percent }
+\@writefile{atoc}{\contentsline {chapter}{\nonumberline Anhang}{30}{chapter*.12}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}

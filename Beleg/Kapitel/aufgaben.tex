@@ -34,17 +34,22 @@ In der Teilaufgabe D wird die Server-Client Architektur in eine Peer-to-Peer Kom
 
 Mit Threads werden die einzelnen zu erledigenden Aufgaben parallel ausgeführt. Der Serverthread wird nur vom ersten Aufruf gestartet, dort wird auch die bereits vorhanden comm Funktion aufgerufen. Alle weiteren Instanzen starten den Inputthread, der die Verbindungen zum Server aufbaut. Der Thread ruft dann eine Clientfunktion auf, die das bisherige separate Programm ersetzt.
 \vspace{-15 pt}
+\newpage
 \section{Interprozesskommunikation}
 \vspace{-15 pt}
 Für die IPC können mehrere Varianten gewählt werden. Für die Bearbeitung der nachfolgenden Aufgaben wurden Message Queues verwendet.\\
-Message Queues verwalten Nachrichten wie verkettetet Listen. Die Listen verfügen über eine Kennung durch die sie durch Prozesse identifiziert werden können. Von einem Prozess gesendete Nachrichten werden gespeichert und können vom Partnerprozess abgerufen werden. Der Prozess kann seinerseits auch Nachrichten in der Queue ablegen. Standardmäßig arbeiten die Queues nach dem FIFO-Prinzip. Es gibt jedoch die Möglichkeit Nachrichten zu priorisieren, indem man ihnen einen eigenen Nachrichtentyp zuweist. Der Prozess sucht dann in der Liste nach der ersten Nachricht dieses Typs auch wenn sie ganz am Ende der Queue stehen sollte \citep{2009:rhein}.
+Message Queues verwalten Nachrichten wie verkettetet Listen. Die Listen verfügen über eine Kennung durch die sie durch Prozesse identifiziert werden können. Von einem Prozess gesendete Nachrichten werden gespeichert und können vom Partnerprozess abgerufen werden. Der Prozess kann seinerseits auch Nachrichten in der Queue ablegen. Standardmäßig arbeiten die Queues nach dem FIFO-Prinzip. Es gibt jedoch die Möglichkeit Nachrichten zu priorisieren, indem man ihnen einen eigenen Nachrichtentyp zuweist. Der Prozess sucht dann in der Liste nach der ersten Nachricht dieses Typs auch wenn sie ganz am Ende der Queue stehen sollte \cite{2009:rhein}.
 \vspace{-15 pt}
-\subsection{Teilaufgabe A}
+\subsection{Teilaufgabe A und B}
 \vspace{-15 pt}
-Diese Teilaufgabe erstellt wieder die Grundstruktur für die Kommunikation. Für den Test der main-Anwendung 
-\subsection{Teilaufgabe B}
+Diese Teilaufgaben erstellen die Grundstruktur für die Kommunikation. Für den Test der main-Anwendung wird gleich ein Subscriber geschrieben, sodass die Aufgaben A und B gemeinsam gelöst werden.
+
+Von der main-Anwendung wird eine Queue geöffnet über die die Subscriberprozesse den Hauptprozess erreichen können. Zum öffnen einer Queue wird ein eindeutiger Schlüssel benötigt. Der Erzeugerfunktion werden außerdem die Berechtigungen mitgegeben, die die geöffnete Queue haben soll. Bei Bedarf können so Listen erstellt werden, die nur gelesen werden können. Subscriber können dann über diesen Kanal keine Nachrichten senden. Die main-Anwendung wartet in einer Schleife auf eine neue Nachricht in der Queue. Die abgerufen Nachricht wird in einer Struktur gespeichert, die den Nachrichtentyp und den eigentlichen Nachrichtentext enthält. Der Nachrichtentext wird anschließend auf bestimmte Kommandos geprüft. Auf eine PING Nachricht wird mit einem PONG an den Subscriber geantwortet.
+
+Die Subscriberanwedung greift auf die erstellte Queue von main zu. Der Nutzer kann über die Kommandozeile eine Nachricht eingeben, die dann in die Queue gesetzt wird. Anschließend wird auf die Antwort des Servers gewartet.
 \vspace{-15 pt}
 \subsection{Teilaufgabe C}
 \vspace{-15 pt}
+
 \subsection{Teilaufgabe D}
 \vspace{-15 pt}
