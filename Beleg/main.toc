@@ -7,20 +7,15 @@
 \contentsline {subsection}{\numberline {2.1.1}Teilaufgabe A}{6}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Teilaufgabe B}{6}{subsection.2.1.2}%
 \contentsline {subsection}{\numberline {2.1.3}Teilaufgabe C}{7}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Teilaufgabe D}{7}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.4}Teilaufgabe D}{8}{subsection.2.1.4}%
 \contentsline {section}{\numberline {2.2}Interprozesskommunikation}{9}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Teilaufgabe A und B}{9}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Teilaufgabe C}{9}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Teilaufgabe D}{9}{subsection.2.2.3}%
-\contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{10}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Einrichtung der Arbeitsumgebung und ROS~2-Paket}{10}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Installation von ROS~2 Humble}{10}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Erstellung eines ROS~2-Workspaces}{11}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Ergebnisse}{11}{subsection.3.1.3}%
-\contentsline {section}{\numberline {3.2}Erstinbetriebnahme}{12}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Grundprinzip von Nodes und Topics}{12}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Start der Turtlesim-Umgebung}{12}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Untersuchung der ROS-Kommunikation}{13}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {2.2.2}Teilaufgabe C}{10}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Teilaufgabe D}{10}{subsection.2.2.3}%
+\contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{12}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Erstinbetriebnahme}{12}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Grundprinzip von Nodes und Topics}{12}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Untersuchung der ROS-Kommunikation}{13}{subsection.3.1.2}%
 \contentsline {chapter}{\numberline {4}TurtleBot mit ESP32}{15}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Arbeitsumgebung}{15}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Betriebssystem und Systemkonfiguration}{15}{subsection.4.1.1}%

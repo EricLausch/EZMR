@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.8.29)  11 NOV 2025 12:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.10.21)  11 NOV 2025 18:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1640,12 +1640,6 @@ chapter 1.
 ]
 chapter 2.
 
-Overfull \hbox (11.46584pt too wide) in paragraph at lines 10--13
-\OT1/cmr/m/n/12 In Tei-lauf-ga-be A wird die Grund-struk-tur f[]ur ei-ne Socket
--kom-mun-ka-ti-on auf-ge-baut. Empf[]angt
- []
-
-
 
 [6
 
@@ -1653,9 +1647,14 @@ Overfull \hbox (11.46584pt too wide) in paragraph at lines 10--13
 
 [7]
 
-[8]) (./Kapitel/vroboter.tex
+[8]
 
 [9]
+
+[10{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}])
+(./Kapitel/vroboter.tex
+
+[11]
 chapter 3.
 
 Overfull \hbox (17.87593pt too wide) in paragraph at lines 10--12
@@ -1664,27 +1663,17 @@ sp[]ater auf rea-le Hard-wa-re []ubertragen,
  []
 
 
-
-[10
-
-]
-
-[11{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-Overfull \hbox (3.36975pt too wide) in paragraph at lines 74--75
-\OT1/cmr/m/n/12 Build-Systems \OT1/cmr/m/it/12 col-con \OT1/cmr/m/n/12 ei-ne ei
-n-heit-li-che und re-pro-du-zier-ba-re Build-Struktur si-cher-ge-stellt. 
- []
-
-
-
-[12]
-Overfull \hbox (72.82547pt too wide) in paragraph at lines 99--101
+Overfull \hbox (72.82547pt too wide) in paragraph at lines 22--24
 \OT1/cmr/m/it/12 turt-le-sim[]node \OT1/cmr/m/n/12 abon-niert wird. Die-ses Zu-
 sam-men-spiel bil-det das klas-si-sche ROS-Kommunikationsschema
  []
 
 
-Overfull \hbox (13.16618pt too wide) in paragraph at lines 124--126
+
+[12
+
+]
+Overfull \hbox (13.16618pt too wide) in paragraph at lines 47--49
 \OT1/cmr/m/n/12 be-ob-ach-tet wer-den, wel-che li-nea-ren und ro-ta-to-ri-schen
  Ge-schwin-dig-kei-ten beim Dr[]ucken
  []
@@ -1706,7 +1695,7 @@ chapter 4.
 [17]
 
 [18]
-Overfull \hbox (6.39322pt too wide) in paragraph at lines 245--246
+Overfull \hbox (6.39322pt too wide) in paragraph at lines 160--161
 []\OT1/cmr/m/n/12 Nur mit die-sem Auf-ruf wer-den die Steu-er-be-feh-le als \OT
 1/cmr/m/it/12 geo-me-try[]msgs/msg/Twist\OT1/cmr/m/n/12 -Nachrichten
  []
@@ -1714,7 +1703,7 @@ Overfull \hbox (6.39322pt too wide) in paragraph at lines 245--246
 
 
 [19]
-Overfull \hbox (10.67812pt too wide) in paragraph at lines 274--276
+Overfull \hbox (10.67812pt too wide) in paragraph at lines 189--191
 \OT1/cmr/m/n/12 Der Kno-ten erbt von \OT1/cmr/m/it/12 rcl-py.node.Node \OT1/cmr
 /m/n/12 und er-stellt einen Pu-blis-her \OT1/cmr/m/it/12 geo-me-try[]msgs/msg/T
 wist
@@ -1723,7 +1712,7 @@ wist
 
 
 [20]
-Overfull \hbox (9.12242pt too wide) in paragraph at lines 331--333
+Overfull \hbox (9.12242pt too wide) in paragraph at lines 246--248
 []\OT1/cmr/bx/n/12 Zeitdiskretisierung: \OT1/cmr/m/n/12 Die Steu-er-fre-quenz b
 e-tr[]agt $20$$[]$ (\OT1/cmr/m/it/12 ra-te[]hz=20\OT1/cmr/m/n/12 ), d.h. die Ti
 mer-
@@ -1734,31 +1723,31 @@ mer-
 [21]
 
 [22]
-<Abbildungen/Turtledreieck.png, id=312, 520.94624pt x 558.085pt>
+<Abbildungen/Turtledreieck.png, id=262, 520.94624pt x 558.085pt>
 File: Abbildungen/Turtledreieck.png Graphic file (type png)
 <use Abbildungen/Turtledreieck.png>
-Package pdftex.def Info: Abbildungen/Turtledreieck.png  used on input line 376.
+Package pdftex.def Info: Abbildungen/Turtledreieck.png  used on input line 291.
 
 (pdftex.def)             Requested size: 227.62209pt x 243.84651pt.
 
 
 [23 <./Abbildungen/Turtledreieck.png>]
-Overfull \hbox (36.67204pt too wide) in paragraph at lines 405--406
+Overfull \hbox (36.67204pt too wide) in paragraph at lines 320--321
 []\OT1/cmr/m/n/12 Subscribt \OT1/cmr/m/it/12 /cmd[]vel[]raw \OT1/cmr/m/n/12 (\O
 T1/cmr/m/it/12 geo-me-try[]msgs/Twist\OT1/cmr/m/n/12 ) und \OT1/cmr/m/it/12 /bu
 m-per/-state \OT1/cmr/m/n/12 (\OT1/cmr/m/it/12 std[]msgs/UInt8\OT1/cmr/m/n/12 )
 . 
  []
 
-<Abbildungen/Blockdiagramm Systemarchitektur.png, id=325, 2393.94376pt x 1180.4
+<Abbildungen/Blockdiagramm Systemarchitektur.png, id=276, 2393.94376pt x 1180.4
 1pt>
 File: Abbildungen/Blockdiagramm Systemarchitektur.png Graphic file (type png)
 <use Abbildungen/Blockdiagramm Systemarchitektur.png>
 Package pdftex.def Info: Abbildungen/Blockdiagramm Systemarchitektur.png  used 
-on input line 417.
+on input line 332.
 (pdftex.def)             Requested size: 455.24417pt x 224.46034pt.
 
-Overfull \hbox (7.55457pt too wide) in paragraph at lines 430--431
+Overfull \hbox (7.55457pt too wide) in paragraph at lines 345--346
 []\OT1/cmr/m/n/12 GPIOs: \OT1/cmr/m/it/12 Bum-per links \OT1/cmr/m/n/12 = GPIO1
 2, \OT1/cmr/m/it/12 Bum-per rechts \OT1/cmr/m/n/12 = GPIO14, je-weils \OT1/cmr/
 m/it/12 IN-PUT[]PULLUP
@@ -1767,7 +1756,7 @@ m/it/12 IN-PUT[]PULLUP
 
 
 [24]
-Overfull \hbox (40.79184pt too wide) in paragraph at lines 433--434
+Overfull \hbox (40.79184pt too wide) in paragraph at lines 348--349
 []\OT1/cmr/m/n/12 Polling/Publish: Ti-mer $5$$[]$ ($200$$[]$), De-boun-ce $\OMS
 /cmsy/m/n/12 ^^Y$$\OT1/cmr/m/n/12 10$$[]$; Pu-blish nur bei Zu-stands[]anderung
 . 
@@ -1775,7 +1764,7 @@ Overfull \hbox (40.79184pt too wide) in paragraph at lines 433--434
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/it' undefined
-(Font)              using `OT1/cmss/bx/n' instead on input line 436.
+(Font)              using `OT1/cmss/bx/n' instead on input line 351.
 
 
 
@@ -1847,6 +1836,9 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 Package logreq Info: Writing requests to 'main.run.xml'.
@@ -1854,38 +1846,32 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 50398 strings out of 473197
- 1053353 string characters out of 5718605
- 2048917 words of memory out of 5000000
- 72776 multiletter control sequences out of 15000+600000
- 571866 words of font info for 86 fonts, out of 8000000 for 9000
+ 50329 strings out of 473197
+ 1052341 string characters out of 5718604
+ 2029916 words of memory out of 5000000
+ 72750 multiletter control sequences out of 15000+600000
+ 569999 words of font info for 77 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 108i,21n,107p,10899b,2876s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
-, replaced by a fixed one
-
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssb
-x10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/font
-s/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-su
-per/sftt1200.pfb>
-Output written on main.pdf (31 pages, 426055 bytes).
+ 108i,20n,107p,10899b,2876s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/
+share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/ty
+pe1/public/cm-super/sftt1200.pfb>
+Output written on main.pdf (31 pages, 401626 bytes).
 PDF statistics:
- 624 PDF objects out of 1000 (max. 8388607)
- 544 compressed objects within 6 object streams
- 169 named destinations out of 1000 (max. 500000)
- 420 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 543 PDF objects out of 1000 (max. 8388607)
+ 468 compressed objects within 5 object streams
+ 129 named destinations out of 1000 (max. 500000)
+ 380 words of extra memory for PDF output out of 10000 (max. 10000000)
 
