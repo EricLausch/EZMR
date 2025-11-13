@@ -1,3 +1,77 @@
 \newpage
 \chapter{Steuerung eines professionellen Roboters mit ROS2}
 \vspace{-15 pt}
+
+Nach der Auseinandersetzung mit den grundlegenden Konzepten von ROS~2 anhand eigener Nodes und einer virtuellen Umgebung erfolgte im nächsten Schritt die Übertragung dieses Wissens auf einen professionellen TurtleBot~4. Dieser Roboter basiert auf einer iRobot Create~3 Plattform und stellt eine umfangreiche Sensorausstattung sowie eine vollständige ROS~2-Integration bereit. Dadurch ähneln die Arbeitsweisen zwischen dem zuvor verwendeten Praktikums-Roboter und dem TurtleBot~4 zwar konzeptionell, unterscheiden sich jedoch deutlich in Zuverlässigkeit, Funktionalität und Komplexität.
+
+Nach dem Einschalten verbindet sich der TurtleBot automatisch mit dem vorgesehenen WLAN und startet mehrere ROS-Nodes, die die gesamte Sensorik und Motorik bereitstellen. Typischerweise werden unmittelbar nach dem Booten zahlreiche Topics erzeugt, unter anderem für Laserscans, Odometrie, IMU-Daten, Docking-Informationen und die verschiedenen Gefahren- beziehungsweise Bumper-Ereignisse über das Topic \texttt{/hazard\_detection}. Für die Ansteuerung der Motoren dient – wie im eigenen System – das Topic \texttt{/cmd\_vel}, das Nachrichten des Typs \texttt{geometry\_msgs/msg/Twist} entgegennimmt. Bereits diese Struktur zeigt, wie stark der TurtleBot den zuvor erlernten ROS-Konzepten entspricht. Die zuvor entwickelten Steuerknoten konnten weitgehend ohne große Änderungen übernommen werden.
+
+Abbildung~\ref{fig:tb4_battery_state} zeigt exemplarisch die Ausgabe des Topics
+\textit{/battery\_state}. Der TurtleBot~4 stellt darüber periodisch detaillierte
+Informationen zur aktuellen Energieversorgung bereit. Die Daten umfassen unter anderem die
+gemessene Akkuspannung, die Temperatur des Batteriemoduls, den Lade- oder Entladestrom sowie
+den geschätzten Ladezustand in Prozent. Zusätzlich enthält die Nachricht Angaben zur maximalen
+Batteriekapazität, zur Nennkapazität und zu verschiedenen Zustandsindikatoren wie dem
+\textit{power\_supply\_status} oder dem \textit{power\_supply\_technology}.
+
+\begin{figure}[ht]     
+	\centering
+	\includegraphics[width=0.6\linewidth]{Abbildungen/hazardauswertung.png} 	% nach "widh = 1" kann ein ", height=6cm" eingefügt werden um die Höhe zu verändern
+	\caption{Blockdiagramm der Systemarchitektur}
+	\label{fig:tb4_battery_state}
+\end{figure}
+
+Die periodische Beobachtung des \textit{/battery\_state}-Topics erwies sich im Praktikum als unerlässlich. Insbesondere zeigte sich, dass der TurtleBot~4 bei niedrigen Akkuständen automatisch bestimmte Funktionen einschränkt oder das Docking-Verhalten priorisiert. Die Arbeit wurde mehrfach unterbrochen, da der Ladezustand des Akkus nicht ausreichend hoch war, um sichere Navigation oder SLAM-Operationen zu gewährleisten. Die Echtzeitüberwachung des Battery-State ermöglichte es jedoch, diese Situationen frühzeitig zu erkennen und den Roboter rechtzeitig zum Dock zurückzubringen.
+
+
+
+Vor dem praktischen Einsatz wurde das offizielle Benutzerhandbuch des TurtleBot~4 verwendet, sowie die Simulationsumgebung genutzt, um den Roboter virtuell zu steuern und die Sensordaten zu visualisieren. Die gewonnenen Kenntnisse erleichterten die spätere Arbeit im Labor, da viele Abläufe – etwa das Starten der Nodes, die Nutzung von RViz oder der Umgang mit \texttt{/cmd\_vel} bereits vertraut waren. Die grundlegenden Elemente der Teleoperation ließen sich direkt aus der Simulation übernehmen: Auch auf dem TurtleBot erfolgt die manuelle Steuerung über ein anpassbares \textit{Twist}-Topic. Wichtig war hierbei die korrekte Verwendung von Remapping, da nur der Befehl
+\begin{lstlisting}
+ros2 run teleop_twist_keyboard teleop_twist_keyboard \
+--ros-args -r /cmd_vel:=/cmd_vel_raw
+\end{lstlisting}
+die Daten so publiziert, dass der eigene Safety-Knoten sie abfangen und weiterverarbeiten konnte.
+
+Im praktischen Teil wurden der TurtleBot~4 zunächst manuell bewegt und anschließend in RViz visualisiert. Die Laserscandaten ermöglichten eine direkte Rücksicht auf die Umgebungsstruktur, und über die Kommandozeile konnten sämtliche Topics live analysiert werden. Besonders hilfreich war dies für das Verständnis des \texttt{/hazard\_detection}-Topics, das im Gegensatz zu einfachen mechanischen Bumpern ein Vektor mehrerer Sensortypen enthält, darunter Front-, Seiten- und Cliff-Sensoren. Der TurtleBot publiziert diese Ereignisse zuverlässig und mit hoher Frequenz; daraus konnte die eigene Bumper-Safety-Logik direkt implementiert werden.
+
+Ein zentrales Experiment war die Erstellung einer zweidimensionalen Umgebungskarte mittels SLAM. Während der TurtleBot die Fläche systematisch abfuhr, wurden die Messwerte des 2D-Laserscanners fortlaufend zu einer konsistenten Karte zusammengesetzt. Die Ergebnisse waren insgesamt stabil: Wände, Schränke oder andere größere Objekte wurden deutlich und zuverlässig erfasst. Auffällig war lediglich, dass sehr dünne Strukturen – etwa Stuhlbeine oder schmale Tischkanten – häufig nur unvollständig oder aus bestimmten Winkeln überhaupt sichtbar wurden. Dieses Verhalten ist typisch für 2D-LiDAR-Sensorik, da feine Objekte nur einen kleinen Teil des Messstrahls reflektieren. Trotz dieser Einschränkungen zeigte der TurtleBot eine robuste Lokalisierung. Selbst nach manueller Verschiebung fand er sich schnell wieder in der zuvor erzeugten Karte zurecht und konnte zuverlässig zu vorgegebenen Zielpunkten navigieren.
+
+Abbildung~\ref{fig:kartierung} zeigt einen exemplarischen Ausschnitt der aufgenommenen Karte.
+
+
+\begin{figure}[ht]     
+	\centering
+	\includegraphics[width=1\linewidth]{Abbildungen/kartierung.png} 	% nach "widh = 1" kann ein ", height=6cm" eingefügt werden um die Höhe zu verändern
+	\caption{Blockdiagramm der Systemarchitektur}
+	\label{fig:kartierung}
+\end{figure}
+
+Auf Grundlage der zuvor erstellten Karte konnte der TurtleBot anschließend autonom navigieren. Die Navigation nutzte die SLAM-Karte, um Hindernisse zu vermeiden und definierte Zielpunkte sicher anzufahren. Insgesamt zeigte der Roboter ein zuverlässiges Verhalten: Größere Objekte und klar strukturierte Hindernisse wurden präzise erkannt und sicher umfahren. Kleinere oder sehr dünne Objekte blieben gelegentlich unentdeckt, beeinflussten die Navigation jedoch kaum, da der interne Navigationsstack des TurtleBot konservativ ausgelegt ist und Kollisionen weitgehend vermeidet.
+
+Abbildung~\ref{fig:slamfahren} zeigt den TurtleBot während der autonomen Navigation auf der zuvor erzeugten Karte. Die Lokalisierung erfolgt dabei kontinuierlich über die Sensordaten des 2D-LiDARs, sodass die Roboterpose im RViz-Fenster jederzeit sichtbar ist. Besonders eindrucksvoll war die Fähigkeit des TurtleBot, nach einer manuellen Verschiebung seine Position rasch wiederzufinden und sich korrekt in der Karte einzuordnen. Dieses Verhalten unterstreicht die Robustheit des integrierten SLAM- und Lokalisierungssystems.
+
+
+\begin{figure}[ht]     
+	\centering
+	\includegraphics[width=1\linewidth]{Abbildungen/slamfahren.png} 	% nach "widh = 1" kann ein ", height=6cm" eingefügt werden um die Höhe zu verändern
+	\caption{Blockdiagramm der Systemarchitektur}
+	\label{fig:slamfahren}
+\end{figure}
+
+
+
+Abschließend wurde eine eigene Anwendung mit dem TurtleBot realisiert: eine Bumper-Safety-Node, die zuvor für den selbstgebauten Roboter implementiert worden war. Diese Node überwacht das Topic \texttt{/hazard\_detection}, unterdrückt eingehende Teleoperationskommandos während eines Ausweichmanövers und führt ein definiertes Verhalten aus, bestehend aus Rückwärtsfahren, anschließendem Wegdrehen, kurzem Stillstand und anschließender Rückgabe der Kontrolle an den Benutzer. Die Portierung erforderte nur geringe Anpassungen, vor allem an den verwendeten Topics sowie an den Geschwindigkeits- und Zeitparametern, da die Motorik des TurtleBot deutlich feinfühliger reagiert als die zuvor verwendete ATtiny-basierte Steuerung.
+
+
+Während der praktischen Arbeit zeigte sich zudem, dass der TurtleBot eine vergleichsweise lange Bootzeit besitzt und erst nach mehreren Sekunden vollständig einsatzbereit ist. Besonders zu beachten war auch der Akkustand: Der Roboter verweigert bei niedriger Ladung teilweise die Ausführung bestimmter Aktionen oder bricht interne Prozesse ab. Diese Faktoren führten immer wieder zu kurzen Unterbrechungen.
+
+Insgesamt erwies sich die Arbeit mit dem TurtleBot~4 als äußerst lehrreich. Die zuvor erarbeiteten ROS-2-Kenntnisse ließen sich nahtlos auf ein professionelles Robotersystem übertragen. Gleichzeitig wurde deutlich, wie wichtig strukturierte Topic-Architekturen, robuste Safety-Mechanismen und eine saubere Parametrisierung für reale Robotersysteme sind. Besonders die Fähigkeit des Roboters, auch nach manueller Umpositionierung wieder in die Karte zurückzufinden und autonom zu navigieren, unterstreicht die Leistungsfähigkeit des TurtleBot~4 und die Vorteile eines vollständigen ROS-Ökosystems.
+
+
+
+
+
+
+
+
+
