@@ -2,9 +2,9 @@
 \chapter{Steuerung eines professionellen Roboters mit ROS2}
 \vspace{-15 pt}
 
-Nach der Auseinandersetzung mit den grundlegenden Konzepten von ROS~2 anhand eigener Nodes und einer virtuellen Umgebung erfolgte im nächsten Schritt die Übertragung dieses Wissens auf einen professionellen TurtleBot~4. Dieser Roboter basiert auf einer iRobot Create~3 Plattform und stellt eine umfangreiche Sensorausstattung sowie eine vollständige ROS~2-Integration bereit. Dadurch ähneln die Arbeitsweisen zwischen dem zuvor verwendeten Praktikums-Roboter und dem TurtleBot~4 zwar konzeptionell, unterscheiden sich jedoch deutlich in Zuverlässigkeit, Funktionalität und Komplexität.
+Nach der Auseinandersetzung mit den grundlegenden Konzepten von ROS~2 anhand eigener Nodes und einer virtuellen Umgebung erfolgte im nächsten Schritt die Übertragung dieses Wissens auf einen professionellen TurtleBot~4.
 
-Nach dem Einschalten verbindet sich der TurtleBot automatisch mit dem vorgesehenen WLAN und startet mehrere ROS-Nodes, die die gesamte Sensorik und Motorik bereitstellen. Typischerweise werden unmittelbar nach dem Booten zahlreiche Topics erzeugt, unter anderem für Laserscans, Odometrie, IMU-Daten, Docking-Informationen und die verschiedenen Gefahren- beziehungsweise Bumper-Ereignisse über das Topic \texttt{/hazard\_detection}. Für die Ansteuerung der Motoren dient – wie im eigenen System – das Topic \texttt{/cmd\_vel}, das Nachrichten des Typs \texttt{geometry\_msgs/msg/Twist} entgegennimmt. Bereits diese Struktur zeigt, wie stark der TurtleBot den zuvor erlernten ROS-Konzepten entspricht. Die zuvor entwickelten Steuerknoten konnten weitgehend ohne große Änderungen übernommen werden.
+Nach dem Einschalten verbindet sich der TurtleBot automatisch mit dem vorgesehenen WLAN und startet mehrere ROS-Nodes, die die gesamte Sensorik und Motorik bereitstellen. Nach dem Bootvorgang wurden zahlreiche Topics erzeugt, unter anderem für Laserscans, Odometrie, IMU-Daten, Docking-Informationen und die verschiedenen Gefahren- beziehungsweise Bumper-Ereignisse über das Topic \texttt{/hazard\_detection}. Für die Ansteuerung der Motoren dient – wie im eigenen System – das Topic \texttt{/cmd\_vel}, das Nachrichten des Typs \texttt{geometry\_msgs/msg/Twist} entgegennimmt. Bereits diese Struktur zeigte, wie stark der TurtleBot den zuvor erlernten ROS-Konzepten entspricht. Die zuvor entwickelten Steuerknoten konnten weitgehend ohne große Änderungen übernommen werden.
 
 Abbildung~\ref{fig:tb4_battery_state} zeigt exemplarisch die Ausgabe des Topics
 \textit{/battery\_state}. Der TurtleBot~4 stellt darüber periodisch detaillierte
@@ -20,10 +20,6 @@ Batteriekapazität, zur Nennkapazität und zu verschiedenen Zustandsindikatoren 
 	\caption{Blockdiagramm der Systemarchitektur}
 	\label{fig:tb4_battery_state}
 \end{figure}
-
-Die periodische Beobachtung des \textit{/battery\_state}-Topics erwies sich im Praktikum als unerlässlich. Insbesondere zeigte sich, dass der TurtleBot~4 bei niedrigen Akkuständen automatisch bestimmte Funktionen einschränkt oder das Docking-Verhalten priorisiert. Die Arbeit wurde mehrfach unterbrochen, da der Ladezustand des Akkus nicht ausreichend hoch war, um sichere Navigation oder SLAM-Operationen zu gewährleisten. Die Echtzeitüberwachung des Battery-State ermöglichte es jedoch, diese Situationen frühzeitig zu erkennen und den Roboter rechtzeitig zum Dock zurückzubringen.
-
-
 
 Vor dem praktischen Einsatz wurde das offizielle Benutzerhandbuch des TurtleBot~4 verwendet, sowie die Simulationsumgebung genutzt, um den Roboter virtuell zu steuern und die Sensordaten zu visualisieren. Die gewonnenen Kenntnisse erleichterten die spätere Arbeit im Labor, da viele Abläufe – etwa das Starten der Nodes, die Nutzung von RViz oder der Umgang mit \texttt{/cmd\_vel} bereits vertraut waren. Die grundlegenden Elemente der Teleoperation ließen sich direkt aus der Simulation übernehmen: Auch auf dem TurtleBot erfolgt die manuelle Steuerung über ein anpassbares \textit{Twist}-Topic. Wichtig war hierbei die korrekte Verwendung von Remapping, da nur der Befehl
 \begin{lstlisting}
@@ -59,7 +55,6 @@ Abbildung~\ref{fig:slamfahren} zeigt den TurtleBot während der autonomen Naviga
 \end{figure}
 
 
-
 Abschließend wurde eine eigene Anwendung mit dem TurtleBot realisiert: eine Bumper-Safety-Node, die zuvor für den selbstgebauten Roboter implementiert worden war. Diese Node überwacht das Topic \texttt{/hazard\_detection}, unterdrückt eingehende Teleoperationskommandos während eines Ausweichmanövers und führt ein definiertes Verhalten aus, bestehend aus Rückwärtsfahren, anschließendem Wegdrehen, kurzem Stillstand und anschließender Rückgabe der Kontrolle an den Benutzer. Die Portierung erforderte nur geringe Anpassungen, vor allem an den verwendeten Topics sowie an den Geschwindigkeits- und Zeitparametern, da die Motorik des TurtleBot deutlich feinfühliger reagiert als die zuvor verwendete ATtiny-basierte Steuerung.
 
 
@@ -67,8 +62,7 @@ Während der praktischen Arbeit zeigte sich zudem, dass der TurtleBot eine vergl
 
 Insgesamt erwies sich die Arbeit mit dem TurtleBot~4 als äußerst lehrreich. Die zuvor erarbeiteten ROS-2-Kenntnisse ließen sich nahtlos auf ein professionelles Robotersystem übertragen. Gleichzeitig wurde deutlich, wie wichtig strukturierte Topic-Architekturen, robuste Safety-Mechanismen und eine saubere Parametrisierung für reale Robotersysteme sind. Besonders die Fähigkeit des Roboters, auch nach manueller Umpositionierung wieder in die Karte zurückzufinden und autonom zu navigieren, unterstreicht die Leistungsfähigkeit des TurtleBot~4 und die Vorteile eines vollständigen ROS-Ökosystems.
 
-
-
+Allerdings musste die Arbeit an dem Turtlebot über die Zeit des Praktikums mehrfach unterbrochen werden, da der Ladezustand des Akkus nicht ausreichend hoch war und somit nur kurze Fahrten möglich waren. Zudem musste anscheinend erst der Abdockvorgang initiiert werden, bevor alle Topics ihre Daten publiziert haben.
 
 
 
