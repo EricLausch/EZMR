@@ -3,14 +3,12 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {1}{\ignorespaces Funktionsprinzip der zeitbasierten Steuerung des \textit {ShapeDriver}-Knotens.}}{19}{figure.caption.5}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Fahrspur der Turtlesim-Node}}{20}{figure.caption.6}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Blockdiagramm der Systemarchitektur}}{21}{figure.caption.7}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1}{\ignorespaces Funktionsprinzip der zeitbasierten Steuerung des \textit {ShapeDriver}-Knotens.}}{22}{figure.caption.6}%
-\contentsline {figure}{\numberline {2}{\ignorespaces Fahrspur der Turtlesim-Node}}{23}{figure.caption.7}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Blockdiagramm der Systemarchitektur}}{25}{figure.caption.8}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {4}{\ignorespaces Blockdiagramm der Systemarchitektur}}{29}{figure.caption.11}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Blockdiagramm der Systemarchitektur}}{30}{figure.caption.12}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Blockdiagramm der Systemarchitektur}}{31}{figure.caption.13}%
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4}{\ignorespaces Ausgabe der Daten des Topic battery state}}{25}{figure.caption.10}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Aufgenommende Karte der W011}}{26}{figure.caption.11}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Hinderniserkennung des Roboters, dargestellt in RViz}}{27}{figure.caption.12}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

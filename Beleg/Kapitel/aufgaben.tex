@@ -9,26 +9,22 @@ Ein Socket ist eine Softwarestruktur, die zur Netzwerkkommunikation verwendet wi
 \vspace{-15 pt}
 \subsection{Teilaufgabe A}
 \vspace{-15 pt}
-In Teilaufgabe A wird die Grundstruktur für eine Socketkommunkation aufgebaut. Der Server soll bei Empfang eines PING Kommandos dem Client mit einem PONG antworten. 
-
+In Teilaufgabe A wird die Grundstruktur für eine Socketkommunkation aufgebaut. Der Server soll bei Empfang eines PING Kommandos dem Client mit einem PONG antworten.\\
 Es wird unter der eigenen IP-Adresse (localhost) ein Socket erstellt. Dazu wird weiterhin ein Port benötigt, der im Quellcode vorgegeben wird. In diesem Beispiel wird der Port 12345 genutzt. Nach der Socketerstellung wartet der Server auf eine eingehende Verbindung. Verbindet sich ein Client wird die Chat-Funktion aufgerufen. Eine eingehende Nachricht wird in einem Buffer gespeichert, ausgewertet und in der Kommandozeile ausgegeben. Getestet werden kann dieser einfache Server mit netcat:
 \begin{lstlisting}
 nc localhost 12345
 \end{lstlisting}
 \vspace{-15 pt}
 Die Eingabe von PING im netcat Terminal sendet die Nachricht an den Server. Als Antwort wird ein PONG gesendet. Alle sonstigen Nachrichten werden in der Kommandozeile des Servers angezeigt, aber nicht beantwortet.
+\newpage
 \subsection{Teilaufgabe B}
 \vspace{-15 pt}
-Im zweiten Aufgabenteil wird eine eigene Client Anwendung entwickelt. Außerdem wird der Server erweitert, sodass er mehrere Clienten verwalten kann. Über Fork wird jede Clientverbindung in einen neuen Kindprozess ausgelagert. Dort wird dann die Chatfunktion wie in Aufgabenteil A ausgeführt. Der Hauptprozess kann dann weiterhin neue Verbindungen akzeptieren, da er nicht mehr durch die Bearbeitung der Chatfunktion blockiert ist.
-
-Die Clientanwendung nutzt die gleichen Bibliotheken wie der Server. Es wird ein eigener Socket erstellt und anschließend eine Verbindung zum Server aufgebaut. IP und der Port des Servers werden im Quellcode vorgegeben. Bei mehreren Servern ist es sinnvoll den Code um eine Nutzereingabe zu ergänzen, die IP und PORT abfragt, wie es auch bei netcat umgesetzt ist.\\
-Nach einer erfolgreichen Verbindung zum Server wartet das Clientprogramm auf eine Nutzereingabe und sendet diese an den Server. Gibt der Nutzer QUIT ein, wird die Verbindung vom Client geschlossen. Alle eventuellen Antworten vom Server werden auf der Kommandozeile ausgegeben. Die erstellte Clientanwendung kann mehrmals gestartet werden. Alle gestarteten Instanzen können Nachrichten an den Server senden und erhalten bei einem PING Kommando auch ein PONG.
+Im zweiten Aufgabenteil wird eine eigene Client Anwendung entwickelt. Außerdem wird der Server erweitert, sodass er mehrere Clienten verwalten kann. Über Fork wird jede Clientverbindung in einen neuen Kindprozess ausgelagert. Dort wird dann die Chatfunktion wie in Aufgabenteil A ausgeführt. Der Hauptprozess kann dann weiterhin neue Verbindungen akzeptieren, da er nicht mehr durch die Bearbeitung der Chatfunktion blockiert ist.\\
+Die Clientanwendung nutzt die gleichen Bibliotheken wie der Server. Es wird ein eigener Socket erstellt und anschließend eine Verbindung zum Server aufgebaut. IP und der Port des Servers werden im Quellcode vorgegeben. Bei mehreren Servern ist es sinnvoll den Code um eine Nutzereingabe zu ergänzen, die IP und PORT abfragt, wie es auch bei netcat umgesetzt ist. Nach einer erfolgreichen Verbindung zum Server wartet das Clientprogramm auf eine Nutzereingabe und sendet diese an den Server. Gibt der Nutzer QUIT ein, wird die Verbindung vom Client geschlossen. Alle eventuellen Antworten vom Server werden auf der Kommandozeile ausgegeben. Die erstellte Clientanwendung kann mehrmals gestartet werden. Alle gestarteten Instanzen können Nachrichten an den Server senden und erhalten bei einem PING Kommando auch ein PONG.
 \vspace{-15 pt}
 \subsection{Teilaufgabe C}
 \vspace{-15 pt}
-Für die Implementierung der editierbaren Listenfunktion müssen neue Befehle im Server angelegt werden. Im Server wird ein Log eingeführt, dass alle ein und ausgehenden Nachrichten mit einem Zeitstempel abspeichert. Der Client kann dann das Log vom Server anfordern und den Text von einzelnen Einträgen verändern. Geänderte Einträge werden im Log markiert.\\
-Die Behandlung des Log wird in einer eigenen Funktion umgesetzt und die bisherige Chat Funktion wird zur comm Funktion. Das Log besteht aus einem Array in dem insgesamt 100 Nachrichten gespeichert werden können. Die Log Funktion wird bei Empfang einer neuen Nachricht bzw. beim Versenden einer Antwort aufgerufen. Der Nutzer kann über GETLOG die Liste anfordern, EDITLOG \textit{id} \textit{text} bearbeitet den angegebenen Eintrag.\\
-Dadurch das für die Übertragung des Logs mehrere Nachrichten vom Server nacheinander gesendet werden müssen, muss der Nachrichtenempfang im Client geändert werden. Bisher erfolgt immer ein Wechsel zwischen senden und empfangen. Der Empfang wird um ein Timeout erweitert. Trifft 200 ms keine Nachricht mehr beim Client ein, wird zur Eingabe übergegangen. Dies funktioniert im lokalen Netzwerk ohne Probleme. Sollen die Anwendungen über größere Entfernungen kommunizieren muss der Timeout erhöht oder ein anderes Konzept verwendet werden, die aktuelle Variante ist nur für kurze Nachrichtenlaufzeiten geeignet.
+Für die Implementierung der editierbaren Listenfunktion müssen neue Befehle im Server angelegt werden. Im Server wird ein Log eingeführt, dass alle ein und ausgehenden Nachrichten mit einem Zeitstempel abspeichert. Der Client kann dann das Log vom Server anfordern und den Text von einzelnen Einträgen verändern. Geänderte Einträge werden im Log markiert. Die Behandlung des Log wird in einer eigenen Funktion umgesetzt und die bisherige Chat Funktion wird zur comm Funktion. Das Log besteht aus einem Array in dem insgesamt 100 Nachrichten gespeichert werden können. Die Log Funktion wird bei Empfang einer neuen Nachricht bzw. beim Versenden einer Antwort aufgerufen. Der Nutzer kann über GETLOG die Liste anfordern, EDITLOG \textit{id} \textit{text} bearbeitet den angegebenen Eintrag. Dadurch das für die Übertragung des Logs mehrere Nachrichten vom Server nacheinander gesendet werden müssen, muss der Nachrichtenempfang im Client geändert werden. Bisher erfolgt immer ein Wechsel zwischen senden und empfangen. Der Empfang wird um ein Timeout erweitert. Trifft 200 ms keine Nachricht mehr beim Client ein, wird zur Eingabe übergegangen. Dies funktioniert im lokalen Netzwerk ohne Probleme. Sollen die Anwendungen über größere Entfernungen kommunizieren muss der Timeout erhöht oder ein anderes Konzept verwendet werden, die aktuelle Variante ist nur für kurze Nachrichtenlaufzeiten geeignet.
 \vspace{-15 pt}
 \newpage
 \subsection{Teilaufgabe D}
@@ -62,15 +58,20 @@ Zusätzlich wird noch ein Nachrichtenlog implementiert wie es auch in der Socket
 Abschließend wird die Struktur in eine Peer-to-Peer Kommunikation umgewandelt, sodass die Partner die gleichen Funktionen besitzen. Es gibt keine Hauptanwendung mehr, die die Kommunikation verwaltet. Beim Ausführen der Anwendung muss zum Start ein eindeutiger Schlüssel angegeben werden. Dieser war in den vorherigen Teilaufgaben immer fest definiert.
 \begin{lstlisting}
 .\peer 123
-.\peer 456
 \end{lstlisting} 
 \vspace{-15 pt}
 Es wird der receive-Thread gestartet, der Nachrichten aus der Queue abruft und auf bestimmte Befehle prüft. Über die Befehle werden Funktionen aufgerufen wie z.B. PING oder das Anfordern und Bearbeiten einer Liste. In dieser Anwendung wird keine Log abgerufen wie bisher sondern eine von den Nutzern erstellte Liste, die lokal oder remote beim Kommunikationspartner geändert werden kann. Wie die Liste des Partners angefordert überschriebt dies immer die eigene lokale Liste. Zum Senden eines Befehls muss der Schlüssel der Gegenstelle an den Befehl an gehangen werden. Der eigene Schlüssel wendet den Befehl dann lokal an. Folgende Befehle können verwendet werden:
 \begin{itemize}
 \item ADD \textit{item}	fügt das eingegebene Element der eigenen Liste hinzu
+\vspace{-15 pt}
 \item UPDATE \textit{id newitem} ändert den angegeben Eintrag
+\vspace{-15 pt}
 \item SHOW gibt die Liste aus
+\vspace{-15 pt}
 \item GETLIST \textit{key} fordert die Liste des Partners an
-\item SEND \textit{key message} sendet dem angegebenen Partner die Nachricht. Mit SEND kann auch ein ADD an den Partner übertragen werden
+\vspace{-15 pt}
+\item SEND \textit{key message} sendet dem angegebenen Partner die Nachricht. Mit SEND \textit{key} ADD \textit{item}, wird die Liste des Partners erweitert.
+\vspace{-15 pt}
 \item PING \textit{key} sendet ein PING an den Partner 
+\vspace{-15 pt}
 \end{itemize}

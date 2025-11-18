@@ -1,47 +1,45 @@
 \babel@toc {ngerman}{}\relax 
-\contentsline {chapter}{\nonumberline Abkürzungsverzeichnis}{IV}{chapter*.2}%
-\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{V}{chapter*.3}%
+\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{IV}{chapter*.2}%
 \contentsline {chapter}{\numberline {1}Einleitung}{5}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Programmieraufgaben}{6}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Sockets}{6}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Teilaufgabe A}{6}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Teilaufgabe B}{6}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.2}Teilaufgabe B}{7}{subsection.2.1.2}%
 \contentsline {subsection}{\numberline {2.1.3}Teilaufgabe C}{7}{subsection.2.1.3}%
 \contentsline {subsection}{\numberline {2.1.4}Teilaufgabe D}{8}{subsection.2.1.4}%
 \contentsline {section}{\numberline {2.2}Interprozesskommunikation}{9}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Teilaufgabe A und B}{9}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Teilaufgabe C}{10}{subsection.2.2.2}%
 \contentsline {subsection}{\numberline {2.2.3}Teilaufgabe D}{10}{subsection.2.2.3}%
-\contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{12}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Erstinbetriebnahme}{12}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Grundprinzip von Nodes und Topics}{12}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Untersuchung der ROS-Kommunikation}{13}{subsection.3.1.2}%
-\contentsline {chapter}{\numberline {4}TurtleBot mit ESP32}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Arbeitsumgebung}{15}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Betriebssystem und Systemkonfiguration}{15}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Entwicklungsumgebung PlatformIO}{16}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Netzwerk- und Agentumgebung}{16}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Erkenntnisse}{17}{subsection.4.1.4}%
-\contentsline {section}{\numberline {4.2}Turtlesim Teleop}{17}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Micro-ROS-Struktur und Node-Konfiguration}{17}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Kommunikation Motorcontroller}{18}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Implementierungsdetails}{18}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Fehlerquellen und Besonderheiten}{19}{subsection.4.2.4}%
-\contentsline {subsubsection}{\nonumberline Ergebnisse}{20}{subsubsection*.5}%
-\contentsline {section}{\numberline {4.3}Abfahren von Polygonen}{20}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Ziel und Aufbau}{21}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Steuerlogik}{21}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Implementierungsdetails}{21}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Aufruf und Parametrisierung}{22}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Beobachtungen}{23}{subsection.4.3.5}%
-\contentsline {section}{\numberline {4.4}Sensorintegration: Bumper mit Host-seitiger Sicherheitslogik}{24}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Zielsetzung}{24}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Systemübersicht und Topics}{24}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Implementierung}{25}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Parameter der Safety-Node}{26}{subsection.4.4.4}%
-\contentsline {subsection}{\numberline {4.4.5}Ergebnis}{26}{subsection.4.4.5}%
-\contentsline {subsection}{\numberline {4.4.6}Probleme}{26}{subsection.4.4.6}%
-\contentsline {chapter}{\numberline {5}Steuerung eines professionellen Roboters mit ROS2}{28}{chapter.5}%
-\contentsline {chapter}{\nonumberline Literatur}{33}{chapter*.14}%
-\contentsline {chapter}{\nonumberline Anhang}{34}{chapter*.15}%
+\contentsline {chapter}{\numberline {3}Grundkonzepte von ROS2 mit einem Versuchsroboter}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Erstinbetriebnahme}{11}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Grundprinzip von Nodes und Topics}{11}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Untersuchung der ROS-Kommunikation}{12}{subsection.3.1.2}%
+\contentsline {chapter}{\numberline {4}TurtleBot mit ESP32}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Arbeitsumgebung}{13}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Betriebssystem und Systemkonfiguration}{13}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Entwicklungsumgebung PlatformIO}{14}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Netzwerk- und Agentumgebung}{14}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Erkenntnisse}{15}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Turtlesim Teleop}{15}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Micro-ROS-Struktur und Node-Konfiguration}{15}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Kommunikation Motorcontroller}{16}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Implementierungsdetails}{16}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Fehlerquellen und Besonderheiten}{17}{subsection.4.2.4}%
+\contentsline {subsubsection}{\nonumberline Ergebnisse}{17}{subsubsection*.4}%
+\contentsline {section}{\numberline {4.3}Abfahren von Polygonen}{18}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Ziel und Aufbau}{18}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Steuerlogik}{18}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Implementierungsdetails}{19}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Aufruf und Parametrisierung}{20}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Beobachtungen}{20}{subsection.4.3.5}%
+\contentsline {section}{\numberline {4.4}Sensorintegration: Bumper mit Host-seitiger Sicherheitslogik}{21}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Zielsetzung}{21}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Systemübersicht und Topics}{21}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Implementierung}{22}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Parameter der Safety-Node}{23}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Ergebnis}{23}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Probleme}{23}{subsection.4.4.6}%
+\contentsline {chapter}{\numberline {5}Steuerung eines professionellen Roboters mit ROS2}{24}{chapter.5}%
+\contentsline {chapter}{\nonumberline Literatur}{29}{chapter*.13}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
